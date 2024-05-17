@@ -9,6 +9,7 @@
 <body>
 
 	<%@ include file = "header.jsp" %>
+	<%@ include file = "navbar.jsp" %>
 	
 	<h1>CIAO</h1>
 	<h2>Mic</h2>
