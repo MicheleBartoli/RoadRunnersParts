@@ -30,7 +30,8 @@ public class ProductModelDS implements ProductModel {
 		}
 	}
 
-	private static final String TABLE_NAME = "product";
+	private static final String TABLE_NAME = "prodotto";
+	private static final String TABLE_NAME2 = "utente";
 
 	@Override
 	public synchronized void doSave(ProductBean prodotto) throws SQLException {
@@ -73,12 +74,12 @@ public class ProductModelDS implements ProductModel {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO" + ProductModelDS.TABLENAME2 + "(userid, tipo, password_hash) VALUES (?, ?, ?)";
+		String insertSQL = "INSERT INTO" + ProductModelDS.TABLE_NAME2 + "(userid, tipo, password_hash) VALUES (?, ?, ?)";
 
 		try{
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
-
+ 
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1,user.getUserid());
 			preparedStatement.setString(2,user.getTipo());

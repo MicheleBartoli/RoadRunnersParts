@@ -1,4 +1,4 @@
-<z<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
  
  <error-page>
@@ -11,9 +11,9 @@
 	<location>/500.html</location>
 </error-page>
 
-<display-name>StorageSession</display-name>
+<display-name>RoadRunnerParts</display-name>
   <welcome-file-list>
-    <welcome-file>ProductView.jsp</welcome-file>
+    <welcome-file>catalogo.jsp</welcome-file>
   </welcome-file-list>
   <resource-ref>
     <description>JNDI reference to a data source</description>

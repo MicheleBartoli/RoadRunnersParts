@@ -40,7 +40,7 @@
 			<th>Nome</th>
 			<th>Descrizione</th>
             <th>Prezzo</th>
-            <th>Quantita</th>
+            <th>Quantità</th>
             <th>Marca</th>
             <th>Modello</th>
 		</tr>
@@ -56,6 +56,7 @@
 			<td><%=bean.getDescrizione()%></td>
             <td><%=bean.getPrezzo()%></td>
             <td><%=bean.getQuantita()%></td>
+            <td>
 			<td><a href="ProductControl?action=delete&id=<%=bean.getId()%>"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
 				<a href="ProductControl?action=readdetails&id=<%=bean.getId()%>" style="margin-left: 0.625rem;"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
 		</tr>
@@ -82,9 +83,8 @@
 		<label for="marca">Marca:</label><br> 
 		<input name="marca" type="text" maxlength="20" required placeholder="Inserisci marca"><br>
 		
-		<label for="modello">Modelo:</label><br> 
+		<label for="modello">Modello:</label><br> 
 		<input name="modello" type="text" maxlength="20" required placeholder="Inserisci modello"><br>
-
   
 		<label for="descrizione">Descrizione:</label><br>
 		<textarea name="descrizione" maxlength="100" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
