@@ -3,26 +3,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Homepage</title>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="icon" href="images/logo2.png">
+	<title>Road Runner Parts</title>
 </head>
 <body>
-
-	<%@ include file = "header.jsp" %>
-	<%@ include file = "navbar.jsp" %>
-	
-	<h1>CIAO</h1>
-	<h2>Mic</h2>
-
-	<h3>Alfio</h3>
-	
-	<h3>cambiamento di s nuovo per prova</h3>
-	<h3>nuovo cmabiamento</h3>
-	
-	<h1>ciao</h1>
-	
-	<%@ include file="footer.jsp" %>
-	
-	
+<div class="bodyContainer">
+	<%@ include file = "includes/header.jsp" %>
+		
+		<div class="slideshow-container">
+        	<div class="mySlides">
+            	<img src="images/slideshow/image1.jpg" style="width:100%">
+        	</div>
+        	<div class="mySlides">
+            	<img src="images/slideshow/image2.jpg" style="width:100%">
+        	</div>
+        	<div class="mySlides">
+            	<img src="images/slideshow/image3.jpg" style="width:100%">
+        	</div>
+    </div>
+	<%@ include file="includes/footer.jsp" %>
+</div>	
+	 <script src="script.js"></script>
 </body>
 </html>

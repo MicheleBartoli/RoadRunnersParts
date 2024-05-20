@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
-<%@ include file="header.jsp" %>
+<%@ include file="includes/header.jsp" %>
 <%@ page import="it.unisa.model.ProductBean" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <%
     String userid = (String) session.getAttribute("userid");
     if (userid == null) {
-		response.sendRedirect("utente.jsp");
+		response.sendRedirect("login.jsp");
 	}
 	else{
 		String tipo = (String) session.getAttribute("tipo");
@@ -107,4 +107,4 @@
 		}
 	}
 	%>
-<%@ include file="footer.jsp" %>
+<%@ include file="includes/footer.jsp" %>
