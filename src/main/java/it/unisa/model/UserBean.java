@@ -10,8 +10,8 @@ public class UserBean  implements java.io.Serializable{
     private String citta;
     private String provincia;
     private String cap;
-    private int telefono;
-    private String email;
+    private String telefono;
+    private String metodo_pagamento;
 
     public UserBean(){
         userid = "";
@@ -21,8 +21,8 @@ public class UserBean  implements java.io.Serializable{
         citta = "";
         provincia = "";
         cap = "";
-        email = "";
-        telefono  = 0;
+        telefono  = "";
+        metodo_pagamento = "";
     }
 
     public String getUserid() {
@@ -81,29 +81,21 @@ public class UserBean  implements java.io.Serializable{
         this.cap = cap;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMetodoPagamento() {
+        return metodo_pagamento;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMetodoPagamento(String metodo_pagamento) {
+        this.metodo_pagamento = metodo_pagamento;
     }
 
-    @Override
-    public String toString() {
-        return "UserBean{" +
-                "indirizzo='" + indirizzo + '\'' +
-                ", citta='" + citta + '\'' +
-                ", provincia='" + provincia + '\'' +
-                ", CAP='" + cap + '\'' + ", telefono='" + telefono + '\'' + ", email= " + email + '\'' +
-                '}';
-    }
+  
 }

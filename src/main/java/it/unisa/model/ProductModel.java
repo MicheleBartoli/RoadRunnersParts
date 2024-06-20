@@ -22,7 +22,6 @@ public interface ProductModel {
 	
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
 	
-	public void DoSaveOrder(String userid, CartBean cart) throws SQLException;
-	
 	public List <OrderBean> doRetrieveByUserId(String userid) throws SQLException;
+	
 }

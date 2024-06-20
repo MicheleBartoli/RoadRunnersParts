@@ -13,6 +13,7 @@ public class ProductBean implements Serializable {
 	int quantita;
 	String marca;
 	String modello_auto;
+	byte[] immagine;
 
 	public ProductBean() {
 		idprodotto = -1;
@@ -22,6 +23,7 @@ public class ProductBean implements Serializable {
 		quantita = 0;
 		marca = "";
 		modello_auto = "";
+		immagine = null;
 	}
 
 	public int getId() {
@@ -79,6 +81,15 @@ public class ProductBean implements Serializable {
 	public void setModelloAuto(String modello_auto){
 		this.modello_auto = modello_auto ;
 	}
+
+	public byte[] getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(byte[] immagine) {
+		this.immagine = immagine;
+	}
+
 	@Override
 	public String toString() {
 		return nome +  " (" + idprodotto + "), " + prezzo + " " + quantita + "." + descrizione + "." + marca + "." + modello_auto;

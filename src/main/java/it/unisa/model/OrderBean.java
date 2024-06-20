@@ -14,6 +14,9 @@ public class OrderBean implements Serializable{
     private String citta;
     private String provincia;
     private String cap;
+    private String nome;
+    private String descrizione;
+    
 
     public OrderBean() {
     }
@@ -80,6 +83,22 @@ public class OrderBean implements Serializable{
 
     public void setIDProdottoOrdinato(int idprodotto_ordinato){
         this.idprodotto_ordinato = idprodotto_ordinato;
+    }
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
 }
