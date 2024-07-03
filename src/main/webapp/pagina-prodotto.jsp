@@ -4,6 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="includes/header.jsp" %>
+
+<!-- PAGINE SPECIFICA DI UN PRODOTTO CHE MOSTRA TUTTI I SUOI DETTAGLI E OFFRE LA POSSIBILITA' DI ACQUISTARLO -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +18,7 @@
             background-color: #4CAF50; /* Colore di sfondo verde */
             color: white;
             padding: 12px 20px;
-            text-align: center;
+            text-alin: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;

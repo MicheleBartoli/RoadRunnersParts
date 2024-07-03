@@ -13,6 +13,11 @@
 	<location>/500.jsp</location>
 </error-page>
 
+<error-page>
+  <error-code> 400</error-code>
+	<location>/400.jsp</location>
+</error-page>
+
 <servlet>
   <servlet-name>ProductControl</servlet-name>
   <servlet-class>it.unisa.control.ProductControl</servlet-class>
@@ -20,6 +25,33 @@
 <servlet-mapping>
   <servlet-name>ProductControl</servlet-name>
   <url-pattern>/ProductControl</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>UserControl</servlet-name>
+  <servlet-class>it.unisa.control.UserControl</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>UserControl</servlet-name>
+  <url-pattern>/UserControl</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>PagamentoControl</servlet-name>
+    <servlet-class>it.unisa.control.PagamentoControl</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>PagamentoControl</servlet-name>
+    <url-pattern>/PagamentoControl</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>OrdineControl</servlet-name>
+    <servlet-class>it.unisa.control.OrdineControl</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrdineControl</servlet-name>
+    <url-pattern>/OrdineControl</url-pattern>
 </servlet-mapping>
   
 <resource-ref>

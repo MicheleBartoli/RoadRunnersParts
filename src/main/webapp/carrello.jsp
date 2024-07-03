@@ -56,31 +56,39 @@
             out.println("<tr><th>Immagine</th><th>Nome</th><th>Prezzo</th><th>Rimuovi</th></tr>");
             for (ProductBean product : cart.getProducts()) {
                 out.println("<tr>");
-                String imgSrc = "images/" + product.getNome().toLowerCase() + ".png";
-                out.println("<td class='img-column'><img src='" + imgSrc + "' alt='" + product.getNome() + "'></td>");
-                out.println("<td>" + product.getNome() + "</td>");
-                out.println("<td>" + String.format("%.2f", product.getPrezzo()) + "€</td>");
-                out.println("<td><form action='ProductControl' method='post'>"
-                    + "<input type='hidden' name='action' value='deleteCart'>"
-                    + "<input type='hidden' name='idprodotto' value='" + product.getId() + "'>"
-                    + "<button type='submit' class='delete-button'><i class='fa fa-trash' aria-hidden='true'></i></button>"
-                    + "</form></td>");
-                out.println("</tr>");
+                    String imgSrc = "images/" + product.getNome().toLowerCase() + ".png"; 
+                    out.println("<td class='img-column'>");
+                    byte[] immagine = product.getImmagine(); 
+                    if (immagine != null && immagine.length > 0) {
+                        String base64image = java.util.Base64.getEncoder().encodeToString(immagine);
+                        out.println("<img src='data:image/jpeg;base64," + base64image + "' alt='" + product.getNome() + "' style='width: 100px; height: 100px;'>");
+                    } else {
+                        out.println("<img src='" + imgSrc + "' alt='" + product.getNome() + "'>");
+                    }
+                    out.println("</td>");
+                    out.println("<td>" + product.getNome() + "</td>");
+                    out.println("<td>" + String.format("%.2f", product.getPrezzo()) + "€</td>");
+                    out.println("<td><form action='ProductControl' method='post'>"
+                        + "<input type='hidden' name='action' value='deleteCart'>"
+                        + "<input type='hidden' name='idprodotto' value='" + product.getId() + "'>"
+                        + "<button type='submit' class='delete-button'><i class='fa fa-trash' aria-hidden='true'></i></button>"
+                        + "</form></td>");
+                    out.println("</tr>");
             }
             out.println("</table>");
             String userid = (String) session.getAttribute("userid");
     %>
             <% if (userid != null) {
                 UserBean user = (UserBean) session.getAttribute("user");
-                boolean canPurchase = user != null && user.getIndirizzo() != null && user.getCitta() != null && user.getProvincia() != null && user.getCap() != null;
+                boolean canPurchase = user != null && user.getIndirizzo() != null && user.getCitta() != null && user.getProvincia() != null && user.getCap() != null && user.getTelefono() != null;
 
                 if (canPurchase) { %>
-                    <form action="ProductControl" method="post">
-                        <input type='hidden' name='action' value='saveOrder'>
+                    <form action="OrdineControl" method="post">
+                        <input type='hidden' name='action' value='saveorder'>
                         <button type='submit' class='full-width-button'>Finalizza l'acquisto</button>
                     </form>
                 <% } else { %>
-                    <p style='text-align: center;'>Per completare l'acquisto, aggiungi il tuo indirizzo, città, provincia e CAP nel tuo profilo</p>
+                    <p style='text-align: center;'>Per completare l'acquisto, aggiungi il tuo indirizzo, città, provincia e CAP e Telefono nel tuo profilo</p>
                 <% }
             } else { %>
                 <p style='text-align: center;'>Accedi per finalizzare l'acquisto</p>

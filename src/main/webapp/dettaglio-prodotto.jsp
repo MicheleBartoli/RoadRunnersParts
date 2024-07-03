@@ -154,7 +154,7 @@
                 <td data-column="Nome"><input name="nome" type="text" maxlength="50" required placeholder="Inserisci nome" value="<%=prodotto.getNome()%>"></td>
                 <td data-column="Descrizione"><textarea name="descrizione" maxlength="100" rows="3" required><%=prodotto.getDescrizione()%></textarea></td>
                 <td data-column="Prezzo"><input name="prezzo" type="text" pattern="^\d+(\.\d{1,2})?$" title="Inserisci un numero valido. Massimo due cifre decimali." required value="<%=prodotto.getPrezzo()%>"></td>
-                <td data-column="Quantita"><input name="quantita" type="number" min="1" value="<%=prodotto.getQuantita()%>" required></td>
+                <td data-column="Quantita"><input name="quantita" type="number" min="0" value="<%=prodotto.getQuantita()%>" required></td>
                 <td data-column="Marca"><input name="marca" type="text" maxlength="20" required placeholder="Inserisci marca" value="<%=prodotto.getMarca()%>"></td>
                 <td data-column="Modello"><input name="modello_auto" type="text" maxlength="20" required placeholder="Inserisci modello" value="<%=prodotto.getModelloAuto()%>"></td>
                 
@@ -183,9 +183,5 @@
     %>
     </form>
     </div>
-
-    <a href="catalogo.jsp" style="text-decoration: none; color: black;">
-        <button type="button">Torna al Catalogo</button>
-    </a>
     
 <%@ include file="includes/footer.jsp" %>

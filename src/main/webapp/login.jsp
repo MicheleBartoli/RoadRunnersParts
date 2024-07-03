@@ -13,7 +13,7 @@
 
 <div id="login-container">
     <h2>Login</h2>
-    <form action="ProductControl?action=loginutente" method="post">
+    <form action="UserControl?action=loginutente" method="post">
         <input type="hidden" name="action" value="login">
         <label for="loginUserid">E-mail:</label><br>
         <input type="text" id="loginUserid" name="userid" required><br>
@@ -28,7 +28,7 @@
 
 <div id="registerForm" style="display: none;">
     <h2>Registrazione</h2>
-    <form action="ProductControl?action=registrautente" method="post" onsubmit="return validateForm()">
+    <form action="UserControl?action=registrautente" method="post" onsubmit="return validateForm()">
         <input type="hidden" name="action" value="register">
         <label for="registerUserid">E-mail:</label><br>
         <input type="text" id="registerUserid" name="userid" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
@@ -105,150 +105,10 @@
     }
 </script>
 
-<%
-    } else {
-        UserBean user = (UserBean) request.getSession().getAttribute("user");
-        List<OrderBean> orders = (List<OrderBean>) request.getAttribute("ordini");
-        if (orders == null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductControl?action=ordini");
-            dispatcher.forward(request, response);
-            return;
-        }
-        String tipo = (String) session.getAttribute("tipo");
-        if (tipo != null && tipo.equals("Admin")) {
-%>
-            <button type="button" onclick="location.href='catalogo.jsp'">Pagina admin</button>
-<%
-        }
-        if (tipo != null) {
-%>
-<h2 style="color: white;">Benvenuto, <%= userid %>!</h2>
-<form action="ProductControl?action=logoututente" method="post">
-    <input type="hidden" name="action" value="logout">
-    <input type="submit" value="Logout">
-</form>
-<div style="display: flex; align-items: center;">
-    <label class="switch" style="margin-top: 0.625rem;">
-        <input type="checkbox" id="toggleSwitch">
-        <span class="slider round"></span>
-    </label>
-    <p style="color: white; margin-left: 0.625rem;">Informazioni utente</p>
-</div>
-<div id="userInfo" style="display: none;">
-    <form action="ProductControl?action=changeUserLocation" method="post">
-        <input type="hidden" name="userid" value="<%= user.getUserid() %>">
-        <div style="width: 40%;">
-            <table style="background-color: white; color: black; border: 0.125rem solid black; width: 100%; height: 10%; border-collapse: collapse;">
-                <tr>
-                    <th style="border: 0.125rem solid black;">Indirizzo</th>
-                    <th style="border: 0.125rem solid black;">Città</th>
-                    <th style="border: 0.125rem solid black;">Provincia</th>
-                    <th style="border: 0.125rem solid black;">CAP</th>
-                </tr>
-                <tr>
-                    <td style="border: 0.125rem solid black;"><input type="text" name="indirizzo" value="<%= user.getIndirizzo() != null ? user.getIndirizzo() : "" %>" required style="width: 100%; box-sizing: border-box;"></td>
-                    <td style="border: 0.125rem solid black;"><input type="text" name="citta" value="<%= user.getCitta() != null ? user.getCitta() : "" %>" required style="width: 100%; box-sizing: border-box;"></td>
-                    <td style="border: 0.125rem solid black;"><input type="text" name="provincia" value="<%= user.getProvincia() != null ? user.getProvincia() : "" %>" required style="width: 100%; box-sizing: border-box;"></td>
-                    <td style="border: 0.125rem solid black;"><input type="text" name="cap" value="<%= user.getCap() != null ? user.getCap() : "" %>" maxlength="10" required style="width: 100%; box-sizing: border-box;"></td>
-                </tr>
-            </table>
-            <input type="submit" value="EFFETTUA MODIFICHE" style="width: 100%; height: 1.5rem; border-radius: 0.25rem; font-weight: bolder; font-size: 1.1rem;">
-        </div>
-    </form>
-</div>
-
-<script>
-    document.getElementById('toggleSwitch').addEventListener('click', function() {
-        var userInfo = document.getElementById('userInfo');
-        if (userInfo.style.display === 'none') {
-            userInfo.style.display = 'block';
-        } else {
-            userInfo.style.display = 'none';
-        }
-    });
-</script>
-
-<p style="color: white;">Qui è la tua lista degli ordini:</p>
-<%
-        if (orders != null && !orders.isEmpty()) {
-%>
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    td, th {
-        border: 0.1875rem solid blueviolet;
-        padding: 0;
-        min-width: 6.25rem;
-    }
-    td {
-        text-align: center;
-    }
-    .img-column {
-        width: 25%;
-        height: auto;
-    }
-    .img-column img {
-        width: 100%;
-        height: auto;
-    }
-    .full-width-button {
-        width: 100%;
-        height: 3.125rem;
-    }
-    .delete-button {
-        display: block;
-        width: 100%;
-        height: 100%;
-        padding: 100% 0;
-        background-color: red;
-    }
-    .fa-trash {
-        font-size: 4rem;
-    }
-    @media (max-width: 37.5rem) {
-        td, th {
-            min-width: 3.125rem;
-        }
-        .fa-trash {
-            font-size: 2rem;
-        }
-    }
-</style>
-<div class="container-ordini">
-    <h1>Ordini</h1>
-    <table>
-        <tr>
-            <th>ID Ordine</th>
-            <th>Utente</th>
-            <th>Prezzo</th>
-            <th>Città</th>
-            <th>Provincia</th>
-            <th>CAP</th>
-        </tr>
-        <% for (OrderBean order : orders) { %>
-        <tr>
-            <td><%= order.getIdordine() %></td>
-            <td><%= order.getUserid() %></td>
-            <td><%= order.getPrezzo() %></td>
-            <td><%= order.getIndirizzo() %></td>
-            <td><%= order.getCitta() %></td>
-            <td><%= order.getProvincia() %></td>
-			<td><%= order.getCap() %></td>
-        </tr>
-        <% } %>
-    </table>
-</div>
-<%
-        } else {
-%>
-<p style="color: white;">Non hai ancora effettuato ordini.</p>
-<%
-        }
-    }
-%>
-<%
+<%}
+else {
+    // Se l'utente è già loggato, reindirizza alla pagina utente
+    response.sendRedirect("utente.jsp");
 }
 %>
 
@@ -282,8 +142,7 @@ if (registrato != null && registrato.equals("true")) {
         }, 100);
     }
 </script>
-<%
-}
+<%}
 %>
 
 <%@ include file="includes/footer.jsp" %>

@@ -24,6 +24,19 @@ public class UserBean  implements java.io.Serializable{
         telefono  = "";
         metodo_pagamento = "";
     }
+    
+ // Costruttore con parametri
+    public UserBean(String userid, String passwordHash, String tipo, String indirizzo, String citta,
+                    String provincia, String cap, String telefono) {
+        this.userid = userid;
+        this.password_hash = passwordHash;
+        this.tipo = tipo;
+        this.indirizzo = indirizzo;
+        this.citta = citta;
+        this.provincia = provincia;
+        this.cap = cap;
+        this.telefono = telefono;
+    }
 
     public String getUserid() {
         return userid;

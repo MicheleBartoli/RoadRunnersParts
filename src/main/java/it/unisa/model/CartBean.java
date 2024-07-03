@@ -32,7 +32,7 @@ public class CartBean {
 	public float getPrezzoTotale(){
 		float total = 0;
 		for (ProductBean product : products){
-			total += ((ProductBean) products).getPrezzo();
+			total += ((ProductBean) product).getPrezzo();
 		}
 		return total;
 	}

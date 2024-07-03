@@ -1,31 +1,42 @@
 package it.unisa.model;
-import java. io. Serializable;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
 
-public class OrderBean implements Serializable{
+public class OrderBean implements Serializable {
 
-    private static final long serialVersioneUID = 1L;
-    
-    private int idordine;
+    private static final long serialVersionUID = 1L;
+
+    private String idordine;
     private String userid;
-    private int idprodotto_ordinato;
-    private float prezzo;
+    private float prezzoTotale;
     private String indirizzo;
     private String citta;
     private String provincia;
     private String cap;
-    private String nome;
-    private String descrizione;
-    
+    private List<ProductBean> prodotti;
+    private int telefono; 
+    private Timestamp dataOrdine; 
 
     public OrderBean() {
+        idordine = "";
+        userid = "";
+        prezzoTotale = 0;
+        indirizzo = "";
+        citta = "";
+        provincia = "";
+        cap = "";
+        prodotti = null;
+        telefono = 0; 
+        dataOrdine = null; 
     }
 
-    public int getIdordine() {
+    public String getIdordine() {
         return idordine;
     }
 
-    public void setIdordine(int idordine) {
+    public void setIdordine(String idordine) {
         this.idordine = idordine;
     }
 
@@ -37,12 +48,12 @@ public class OrderBean implements Serializable{
         this.userid = userid;
     }
 
-    public float getPrezzo() {
-        return prezzo;
+    public float getPrezzoTotale() {
+        return prezzoTotale;
     }
 
-    public void setPrezzo(float prezzo) {
-        this.prezzo = prezzo;
+    public void setPrezzoTotale(float prezzoTotale) {
+        this.prezzoTotale = prezzoTotale;
     }
 
     public String getIndirizzo() {
@@ -77,28 +88,39 @@ public class OrderBean implements Serializable{
         this.cap = cap;
     }
 
-    public int getIdProdottoOrdinato(){
-        return idprodotto_ordinato;
+    public List<ProductBean> getProdotti() {
+        return prodotti;
     }
 
-    public void setIDProdottoOrdinato(int idprodotto_ordinato){
-        this.idprodotto_ordinato = idprodotto_ordinato;
-    }
-    
-    public String getNome() {
-        return nome;
+    public void setProdotti(List<ProductBean> prodotti) {
+        this.prodotti = prodotti;
+        calcolaPrezzoTotale(); //aggiorna il prezzo dell'ordine ogni volta che viene aggiunto/rimosso un prodotto
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public String getDescrizione() {
-        return descrizione;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
+    public Timestamp getDataOrdine() {
+        return dataOrdine;
+    }
+
+    public void setDataOrdine(Timestamp dataOrdine) {
+        this.dataOrdine = dataOrdine;
+    }
+
+    //calcola il prezzo totale dell'ordine
+    private void calcolaPrezzoTotale() {
+        float totale = 0;
+        if (prodotti != null) {
+            for (ProductBean prodotto : prodotti) {
+                totale += prodotto.getPrezzo();
+            }
+        }
+        this.prezzoTotale = totale;
+    }
 }

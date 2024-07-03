@@ -16,12 +16,10 @@ public interface ProductModel {
 
 	public UserBean doRetrieveByKeyUser(String userid) throws SQLException;
 
-	public List<OrderBean> doRetrieveByUserid(String userid) throws SQLException;
+	public List<OrderBean> doRetrieveByUserId(String userid) throws SQLException;
 	
 	public UserBean doCheckUser(String userid, String password) throws SQLException;
 	
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
-	
-	public List <OrderBean> doRetrieveByUserId(String userid) throws SQLException;
-	
+		
 }

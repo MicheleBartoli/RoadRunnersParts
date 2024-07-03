@@ -9,7 +9,7 @@ CREATE TABLE prodotto (
   nome varchar(50) not null,
   descrizione varchar(200),
   prezzo float default 0,
-  quantita int default 0,
+  quantita int default 1,
   marca varchar(255),
   modello_auto varchar(255),
   immagine LONGBLOB
@@ -28,7 +28,7 @@ CREATE TABLE user (
 );
 	
 CREATE TABLE ordine (
-  idordine int primary key AUTO_INCREMENT,
+  idordine int,
   userid varchar(255) not null,
   idprodotto_ordinato int not null,
   prezzo_ordine float not null,
@@ -37,9 +37,20 @@ CREATE TABLE ordine (
   provincia varchar(255) not null,
   cap varchar(10) not null,
   telefono int not null,
+  data_ordine TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   FOREIGN KEY (userid) REFERENCES user(userid),
   FOREIGN KEY (idprodotto_ordinato) REFERENCES prodotto(idprodotto)
+);
+
+CREATE TABLE metodi_pagamento (
+  idmetodopagamento varchar(255) AUTO_INCREMENT PRIMARY KEY,
+  user_id varchar(255),
+  tipo_pagamento ENUM('PayPal', 'Carta di Credito') NOT NULL,
+  account_id varchar(50),
+  data_scadenza DATE,
+  cvv varchar(4),
+  FOREIGN KEY (user_id) REFERENCES user(userid)
 );
 
 INSERT INTO prodotto values (1,"Paraurti anteriore RRS","Paraurti anteriore RangeRover sport 2018", 1000,1,"RangeRover","Sport",NULL);

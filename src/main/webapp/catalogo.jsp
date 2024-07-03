@@ -21,7 +21,6 @@
             response.sendRedirect("login.jsp");
 			return;
         } else if (tipo.equals("Admin")) {
-            ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
             List<ProductBean> prodotti = (List<ProductBean>) request.getAttribute("prodotti");
             if (prodotti == null || prodotti.isEmpty()) {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductControl?action=amministratore");
@@ -45,7 +44,6 @@
 <div style="display: flex; justify-content: center; margin-right: 50%;">
     <h2 style="color: white; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Prodotti</h2>
 </div>
-<a href="ProductControl?action=amministratore" style="color: white; font-weight: bolder; text-decoration: none;">Lista (clicca per aggiornare)</a>
 <table border="1" style="background-color: #90EE90;">
     <tr>
         <th>Immagine</th>
@@ -123,7 +121,7 @@
     
     <input type="submit" value="Add"><input type="reset" value="Reset">
 </form>
-<form action="ProductControl?action=logoututente" method="post" style="margin-bottom: 8.125rem; margin-top: 1.25rem;">
+<form action="UserControl?action=logoututente" method="post" style="margin-bottom: 8.125rem; margin-top: 1.25rem;">
     <input type="hidden" name="action" value="logout">
     <input type="submit" value="Logout">
 </form>
