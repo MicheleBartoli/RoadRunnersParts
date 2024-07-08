@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -827,4 +828,74 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
     return suggestions;
 }
 
+	public OrderBean retrieveOrderById(int orderId) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+	    OrderBean orderBean = null;
+
+	    try {
+	        connection = ds.getConnection();
+	        String selectSQL = "SELECT o.idordine, o.userid, o.prezzo_ordine, o.indirizzo, o.citta, " +
+	                "o.provincia, o.cap, o.telefono, o.data_ordine, " +
+	                "p.idprodotto, p.nome, p.descrizione, p.prezzo, p.quantita, p.marca, p.modello_auto, p.immagine " +
+	                "FROM ordine o " +
+	                "JOIN prodotto p ON o.idprodotto_ordinato = p.idprodotto " +
+	                "WHERE o.idordine = ?";
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, orderId);
+	        rs = preparedStatement.executeQuery();
+
+	        Map<String, OrderBean> orderMap = new LinkedHashMap<>();
+
+	        while (rs.next()) {
+	            String idOrdine = rs.getString("idordine");
+	            OrderBean order = orderMap.get(idOrdine);
+
+	            if (order == null) {
+	                order = new OrderBean();
+	                order.setIdordine(rs.getString("idordine"));
+	                order.setUserid(rs.getString("userid"));
+	                order.setPrezzoTotale(0); // Inizializza il prezzo totale a zero
+	                order.setIndirizzo(rs.getString("indirizzo"));
+	                order.setCitta(rs.getString("citta"));
+	                order.setProvincia(rs.getString("provincia"));
+	                order.setCap(rs.getString("cap"));
+	                order.setTelefono(rs.getInt("telefono"));
+	                order.setDataOrdine(rs.getTimestamp("data_ordine"));
+	                order.setProdotti(new ArrayList<>());
+	                orderMap.put(idOrdine, order);
+	            }
+
+	            ProductBean product = new ProductBean();
+	            product.setId(rs.getInt("idprodotto"));
+	            product.setNome(rs.getString("nome"));
+	            product.setDescrizione(rs.getString("descrizione"));
+	            product.setPrezzo(rs.getFloat("prezzo"));
+	            product.setQuantita(rs.getInt("quantita"));
+	            product.setMarca(rs.getString("marca"));
+	            product.setModelloAuto(rs.getString("modello_auto"));
+	            product.setImmagine(rs.getBytes("immagine"));
+
+	            order.getProdotti().add(product);
+	            order.setPrezzoTotale(order.getPrezzoTotale() + product.getPrezzo()); // Aggiorna il prezzo totale dell'ordine
+	        }
+
+	        // Se l'ordine è stato trovato, restituisci il primo elemento della mappa (dovrebbe essercene solo uno)
+	        if (!orderMap.isEmpty()) {
+	            orderBean = orderMap.values().iterator().next();
+	        }
+
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (preparedStatement != null) preparedStatement.close();
+	        } finally {
+	            if (connection != null) connection.close();
+	        }
+	    }
+
+	    return orderBean;
+	}
 }
+

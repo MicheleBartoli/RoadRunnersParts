@@ -74,7 +74,7 @@
                 <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
                 <td>
                     <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>
-                    <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
+                    <a href="OrdineControl?action=generafattura&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
                 </td>
             </tr>
         <% } %>
@@ -122,7 +122,7 @@
                 <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
                 <td>
                     <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>
-                    <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
+                    <a href="OrdineControl?action=generafattura&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
                 </td>
             </tr>
         <% } %>
@@ -160,7 +160,7 @@
             <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
             <td>
                 <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>
-                <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
+                <a href="OrdineControl?action=generafattura&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
             </td>
         </tr>
     <% } %>

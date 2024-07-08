@@ -18,7 +18,7 @@
             background-color: #4CAF50; /* Colore di sfondo verde */
             color: white;
             padding: 12px 20px;
-            text-alin: center;
+            text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;

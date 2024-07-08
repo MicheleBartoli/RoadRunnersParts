@@ -24,7 +24,6 @@ CREATE TABLE user (
   provincia varchar(255), 
   cap varchar(10),
   telefono int,
-  metodo_pagamento ENUM('Carta di credito', 'PayPal')
 );
 	
 CREATE TABLE ordine (
@@ -44,7 +43,7 @@ CREATE TABLE ordine (
 );
 
 CREATE TABLE metodi_pagamento (
-  idmetodopagamento varchar(255) AUTO_INCREMENT PRIMARY KEY,
+  idmetodopagamento int AUTO_INCREMENT PRIMARY KEY,
   user_id varchar(255),
   tipo_pagamento ENUM('PayPal', 'Carta di Credito') NOT NULL,
   account_id varchar(50),
