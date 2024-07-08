@@ -24,6 +24,7 @@ CREATE TABLE user (
   provincia varchar(255), 
   cap varchar(10),
   telefono int,
+  metodo_pagamento varchar(50)
 );
 	
 CREATE TABLE ordine (
