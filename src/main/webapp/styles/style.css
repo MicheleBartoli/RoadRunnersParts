@@ -1,133 +1,156 @@
 @charset "UTF-8";
-/* Stile per il container dell'header */
 
-  /* BODY CONTAINER */
-  .bodyContainer{
-  background-color: #fff;
-  height: 100%;
 
+												 /* BODY CONTAINER E VARIE */
+html, body{
+	height:100%;
+}
+
+.bodyContainer{
+  	background-color: #fff;
+  	flex: 1;
+  	min-height: 100%;
   }
   
-  /*NAVBAR*/
-
+ .bodyContainerUtente{
+  	background-color: white;
+  	flex: 1;
+  	min-height: 1080px;
+  	margin-top: 150px;
+  }
+  
+ .bodyContainerLogin{
+  	display: flex;
+    justify-content: center;
+    align-items: center;
+  	min-height: 100%;
+  }
+ .bodyContainerCart{
+ 	display: flex;
+    justify-content: center;
+    align-items: center;
+  	min-height: 120%;
+  }
+.redirect{
+	text-align: center;
+	margin-top: 350px;
+}
+.redirect h1{
+	color: #2074B0;
+	text-align: center;
+	margin-top: 350px;
+}
+    
+  																			/*NAVBAR*/
 /* Stile per il logo */
-  .logo {
+ .logo {
     width: 180px;
     padding: 14px 16px;
   }
-  
-  .logo-container {
+.logo-container {
     float: left;
     justify-content: left;
     align-items: center;
     max-width: 200px;
 }
-  
-  /* Media query per schermi di dimensioni più piccole */
-@media (max-width: 600px) {
-    .navbar {
-        justify-content: center; /* Centra tutti gli elementi della navbar */
-    }
-    
-    .logo-container {
-    	display: block;
-        height: 85px;
-        width: 100%;
-        max-width: none;
-        position: relative;
-    }
-    
-    .logo {
-    	position: absolute;
-        max-height: 130px; /* Limita la dimensione massima del logo */
-    }
+/* Stile per il carrello */
+.cart {
+    float: right;
+    display: block;
+    color: #2074B0;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 22px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    text-decoration: none;
 }
-  
-  /* NAVBAR*/
-  
+
+.cart i {
+    font-size: 24px;
+}
+
+.cart:hover {
+    text-decoration: underline;
+    color: #fff;
+    background-color: #2074B0;
+}
+/* Stile per la search bar */
+.searchbar {
+    padding: 10px 20px; /* Modifica padding per maggiore spazio interno */
+  	margin-left: 10px;
+  	margin-top: 20px;
+    border: 1px solid #D4ECFD; /* Bordo grigio chiaro */
+    border-radius: 8px; /* Angoli arrotondati */
+    font-size: 16px; /* Dimensione del testo */
+    background-color: #f8f8f8; /* Colore di sfondo */
+    color: #333; /* Colore del testo */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Animazioni per focus */
+    width: 40%;
+}
+
+.searchbar:focus {
+    border-color: #2074B0; /* Colore del bordo quando il campo di testo è in focus */
+    box-shadow: 0 0 5px rgba(32, 116, 176, 0.5); /* Aggiunge un'ombra per evidenziare il focus */
+    outline: none; /* Rimuove l'effetto outline di default */
+}
+
   
 .topnav {
   overflow: hidden;
-  background-color: #D4ECFD;
+  background-color: #fff;
+  position: fixed; /* Rende la navbar fissa */
+  top: 0; /* Posiziona la navbar in alto */
+  width: 100%; /* La navbar occupa tutta la larghezza della pagina */
+  z-index: 1000; /* Assicura che la navbar sia sopra altri elementi */
+  overflow: visible;
 }
 
 .topnav a {
-  float: right;
-  display: block;
+  float: none;
+  display: inline;
   color: #2074B0;
   text-align: center;
   padding: 30px 20px;
   font-size: 22px;
   margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 3s ease;
+  cursor: pointer; /* Rende il cursore con la manina che punta*/
+  transition: background-color 0.5s ease;
   text-decoration-style: solid;
 }
-
 .topnav a:hover {
   	text-decoration: underline;
-    color: #0AA4E4;
+    color: #fff;
+    background-color: #2074B0;
 }
-
-
 .topnav .hamburger {
   display: none;
 }
 
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;
-  float: right;
-  color: #2074B0;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px; 
- }
-  
-  .topnav a.hamburger {
-    float: right;
-    display: block;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .hamburger {
-    position: absolute;
-    right: 10;
-    top: 15px;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}  
-  /*FOOTER*/
-  
- 
-
-
-
-footer {
-    background: #333;
-    color: #fff;
-    padding: 20px 0;
-}
-
+																							/*FOOTER*/
 .footer-container {
+    bottom: 0; /* Lo posiziona in fondo alla finestra del browser */
     display: flex;
     flex-wrap: wrap;
     background-color: #2074B0;
     justify-content: space-around;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin-top: -50px;
+    padding: 20px 20px;
     opacity: 80%;
+    clear:both;
 }
 
+footer {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.spacing{
+	display: none;
+
+}
 .footer-section {
     flex: 1;
     min-width: 250px;
@@ -162,6 +185,7 @@ footer {
 
 .footer-section ul li a:hover {
     color: #D4ECFD;
+    text-decoration: underline;
 }
 
 .footer-section .social-links a {
@@ -186,17 +210,19 @@ footer {
     margin-top: 20px;
 }
 
+
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
         align-items: center;
+        margin-top: -100px;
     }
 
     .footer-section {
-        max-width: 400px;
+        max-width: 200px;
     }
 }
-/*LOGIN STUFF*/
+																				/*LOGIN STUFF*/
 
 .login-container {
     background-color: #fff;
@@ -205,6 +231,8 @@ footer {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     color: #2074B0;
+    margin:auto;
+    
 }
 
 .login-container h2 {
@@ -234,9 +262,9 @@ footer {
     width: auto;
 }
 
-.loginButton {
+.button {
     width: 100%;
-    background-color: #D4ECFD;
+    background-color: #fff;
     color: #2074B0;
     border: none;
     padding: 10px;
@@ -245,7 +273,7 @@ footer {
     transition: background-color 0.3s ease;
 }
 
-.loginButton:hover {
+.button:hover {
     background-color: #2074B0;
     color: #fff;
 }
@@ -263,7 +291,22 @@ footer {
 
 .register-link a:hover {
     text-decoration: underline;
+    color: #D4ECFD;
 }
+
+.responsive-table {
+	background-color: #f2f2f2; 
+	color: #2074B0; 
+	padding: 10px; 
+	display: flex; 
+	flex-direction: column;
+	margin: auto;
+}
+
+
+
+
+
 
 .content_page{
     background-color: #fff;
@@ -276,17 +319,19 @@ footer {
 }
 
 
-
-/*SLIDESHOW */
+																			/*SLIDESHOW */
 
 
 .slideshow-container {
     position: relative;
-    max-width: 1000px;
+    max-width: 100%;
     margin: auto;
     overflow: hidden; /* Assicura che le immagini non escano dal div */
-    height: 500px; /* Imposta un'altezza fissa per il contenitore */
-    padding-top: 20px;
+    height: 1500px; /* Imposta un'altezza fissa per il contenitore */
+    margin-top: 40px;
+    padding-bottom: 50px; /* Aggiungi un padding inferiore sufficientemente grande */
+   
+    
 }
 
 .mySlides {
@@ -295,19 +340,23 @@ footer {
     height: 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    
 }
 
 .mySlides.show {
     opacity: 1;
     transform: translateX(0);
+   
 }
 
 .mySlides.next {
     transform: translateX(100%);
+    
 }
 
 .mySlides.prev {
     transform: translateX(-100%);
+   
 }
 
 .img {
@@ -315,7 +364,467 @@ footer {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Assicura che l'immagine copra l'intero contenitore */
+    
 }
-.redirect{
+
+													/* Media query per schermi di dimensioni più piccole */
+													
+@media (max-width: 1432px){
+	.slideshow-container {
+	height: 1000px;
+	}
+	.searchbar{
+	width: 20%;
+	}
+	
+}
+@media (max-width: 1073px) {
+	.slideshow-container {
+	height: 600px;
+	}
+    .navbar {
+        justify-content: center; /* Centra tutti gli elementi della navbar */
+    }
+    
+    .logo-container {
+    	display: block;
+        height: 85px;
+        width: 100%;
+        max-width: none;
+        position: relative;
+    }
+    
+    .logo {
+    	position: absolute;
+        max-height: 130px; /* Limita la dimensione massima del logo */
+    }
+    .searchbar {
+    	margin-top: 100px;
+        display: block; /* Nascondi la search bar */
+        width: 95%;
+    }
+    
+    .topnav a:not(:first-child) {
+  		display: none;
+  		float: right;
+  		color: #2074B0;
+  		text-align: center;
+  		padding: 14px 16px;
+  		text-decoration: none;
+  		font-size: 17px; 
+  		float: none;
+ 	}
+ 
+	.topnav a:hover {
+  		text-decoration: underline;
+    	color: #fff;
+    	background-color: #2074B0;
+	}
+  .topnav a.hamburger {
+    	float: right;
+    	display: block;
+    	position: absolute;
+    	right: 10px;
+    	top: 15px;
+  }
+  .topnav.responsive {
+  		position: relative;
+  }
+  .topnav.responsive .hamburger {
+    	position: absolute;
+    	right: 10px;
+    	top: 15px;
+  }
+  	.topnav.responsive a {
+  		text-align: center;
+    	float: none;
+    	display: block;
+  }
+  .slideshow-container {
+  margin-top: 20px;
+  }
+  .spacing{
+  display: block;
+  height: 60px;
+  width: 100%;
+  }
+}
+
+
+.areaPersonale{
+	color: #2074B0;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    flex-direction: column;
+}
+.areaPersonale button{
+	background-color: white;
+}
+#userButton{
+	text-align-last: center;
+}
+#userBoldButton{
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.form-container{
+	background-color: white;
+	display: none;
+}
+.form-container label{
+	display: block;
+}
+#credit_card_fields label{
+	display: block;
+}
+#updateAdress{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.suggestions {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            box-sizing: border-box;
+            display: none; /* Nascosto di default */
+            z-index: 10; /* Higher value to ensure it is on top */
+            margin-top: 22px;
+}
+
+#suggestion {
+    color: #2074B0;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    text-align: left;
+    font-size: 15px;
+    padding: 10px 15px;
+}
+
+#suggestion:hover {
+    color: white; /* Cambia il colore del link quando ci si passa sopra con il mouse */
+    text-decoration: underline; /* Aggiunge la sottolineatura al passaggio del mouse */
+}
+
+
+.containerProdotti{
+	background-color:white;
+	height: 1200px;
 	text-align: center;
+	color: #2074B0;
+	
 }
+.cardAggiungiProdotto{
+	color: #2074B0;
+    display: none;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    flex-direction: column;
+}
+
+.cardRicercaOrdine{
+	color: #2074B0;
+    display: none;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    flex-direction: column;
+}
+
+
+#insertButton{
+	display: block;
+	font-weight: bold;
+}
+#bottoneCatalogo{
+	border-radius: 8px;
+    font-weight: bold;
+    margin: 20px;
+    border-block-color: #2074B0;
+}
+
+#bottoneCatalogo:hover{
+	background-color: white;
+	}
+.table-container {
+    max-height: 600px;
+    overflow-y: auto;
+    width: 100%;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    margin-top: 20px;
+}
+.tabellaProdotto{
+	width: 100%;
+    border-collapse: collapse;
+    
+}
+
+
+.containerUtenti{
+	background-color:white;
+	height: 1200px;
+	text-align: center;
+	color: #2074B0;
+	
+}
+.tabellaUtenti{
+	width: 100%;
+    border-collapse: collapse;
+    
+}
+
+.containerProdotto{
+	display: flex;
+    /*justify-content: space-between;*/
+    /*align-items: flex-start;*/
+    width: 100%;
+    padding: 20px;
+    gap: 8px;
+    align-items: stretch;
+    color: #2074B0;
+    justify-content: center;
+}
+
+.leftColumn {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #2074b0;
+    max-height: 700px;
+    border-radius: 20px;
+}
+
+.centerColumn {
+    width: 20%;
+    padding: 10px;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+}
+
+.rightColumn {
+    width: 10%;
+    padding: 10px;
+    border: 1px solid #2074b0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    
+}
+
+.leftColumn img {
+    max-width: 100%;
+    height: auto;
+}
+
+.centerColumn h3 {
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+#addButton {
+    width: 100%;
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+#addButton:hover {
+    background-color: #2074B0;
+    color: #fff;
+}
+
+@media (max-width: 1532px) {
+.containerProdotto{
+	display: flex;
+    width: 100%;
+    padding: 20px;
+    gap: 8px;
+    color: #2074B0;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.leftColumn {
+    width: 80%;
+    padding: 10px;
+    max-height: 700px;
+}
+
+.centerColumn {
+    width: 80%;
+    padding: 10px;
+    
+}
+
+.rightColumn {
+    width: 80%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+    
+}
+
+.leftColumn img {
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+  	margin-right: auto;
+}
+
+.centerColumn h3 {
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+#addButton {
+    width: 100%;
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+#addButton:hover {
+    background-color: #2074B0;
+    color: #fff;
+}
+.imgCornice{
+	display:flex;
+}
+}
+
+
+
+
+@media (max-width: 500px) {
+.containerProdotto{
+	display: flex;
+    width: 100%;
+    margin-top: -20px;
+    padding: 20px;
+    gap: 8px;
+    color: #2074B0;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.leftColumn {
+    width: 90%;
+    padding: 10px;
+    max-height: 700px;
+}
+
+.centerColumn {
+    width: 90%;
+    padding: 10px;
+    
+}
+
+.rightColumn {
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+    
+}
+
+.leftColumn img {
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+  	margin-right: auto;
+}
+
+.centerColumn h3 {
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+#addButton {
+    width: 100%;
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+#addButton:hover {
+    background-color: #2074B0;
+    color: #fff;
+}
+.imgCornice{
+	display:flex;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

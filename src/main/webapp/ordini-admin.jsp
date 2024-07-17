@@ -32,9 +32,9 @@
             List<OrderBean> filteredOrders = (List<OrderBean>) request.getAttribute("filteredOrders");
             boolean hasFilteredOrders = filteredOrders != null && !filteredOrders.isEmpty();
 %>
-
-<div style="display: flex; justify-content: center; margin-right: 50%;">
-    <h2 style="color: black; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Storico Ordini: </h2>
+<div class="containerProdotti">
+<div style="margin-top:100px">
+    <h2>Storico Ordini: </h2>
 </div>
 
 <!-- Form per la ricerca per utente -->
@@ -47,10 +47,11 @@
 
 <!-- Tabella per mostrare risultati ricerca per utente -->
 <% if (hasSearchedOrders) { %>
-    <div style="display: flex; justify-content: center; margin-right: 50%;">
-        <h2 style="color: black; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Risultati della ricerca per utente: </h2>
+    <div >
+        <h2>Risultati della ricerca per utente: </h2>
     </div>
-    <table border="1" style="background-color: #90EE90;">
+    <div class="table-container ">
+    <table border="1" class="tabellaProdotto">
         <tr>
             <th>Order ID</th>
             <th>User ID</th>
@@ -79,6 +80,7 @@
             </tr>
         <% } %>
     </table>
+    </div>
 <% } else { %>
     <p style="color: red;">Utente non trovato o inserisci un utente per ricercarlo.</p>
 <% } %>
@@ -95,10 +97,11 @@
 
 <!-- Tabella per mostrare risultati ricerca per data -->
 <% if (hasFilteredOrders) { %>
-    <div style="display: flex; justify-content: center; margin-right: 50%;">
-        <h2 style="color: black; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Risultati della ricerca per data: </h2>
+    <div>
+        <h2>Risultati della ricerca per data: </h2>
     </div>
-    <table border="1" style="background-color: #90EE90;">
+    <div class="table-container ">
+    <table border="1" class="tabellaProdotto">
         <tr>
             <th>Order ID</th>
             <th>User ID</th>
@@ -127,16 +130,17 @@
             </tr>
         <% } %>
     </table>
+    </div>
 <% } else { %>
     <p style="color: red;">Nessun ordine trovato per il periodo selezionato.</p>
 <% } %>
 
 <!-- Tabella per mostrare tutti gli ordini -->
-<div style="display: flex; justify-content: center; margin-right: 50%;">
-    <h2 style="color: rgb(0, 0, 0); font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Tutti gli ordini: </h2>
+<div>
+    <h2>Tutti gli ordini: </h2>
 </div>
-
-<table border="1" style="background-color: #90EE90;">
+<div class="table-container">
+<table border="1" class="tabellaProdotto">
     <tr>
         <th>Order ID</th>
         <th>User ID</th>
@@ -165,10 +169,12 @@
         </tr>
     <% } %>
 </table>
+</div>
 
 <%
         }
     }
 %>
-
+</div>
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>

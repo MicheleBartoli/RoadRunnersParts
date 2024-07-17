@@ -9,7 +9,7 @@
 <!-- PAGINA DI GESTIONE DEL CATALOGO LATO AMMINISTRATORE -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<div class="containerProdotti" id="containerProdotti">
 <%
     String userid = (String) session.getAttribute("userid");
     if (userid == null) {
@@ -29,6 +29,51 @@
             }
 %>
 
+<div style="margin-top:100px;">
+    <h2>Prodotti</h2>
+</div>
+<div style="margin-top:100px;">
+    <button onclick="showInsertProduct()" class="button"  id="insertButton">Inserisci prodotto</button>
+</div>
+<div class="cardAggiungiProdotto" id="cardProdotto">
+
+<!-- Form di inserimento prodotti lato amministratore -->
+
+
+
+<form action="ProductControl?action=insert" method="post" class="form-container3" enctype="multipart/form-data">
+    
+    <label for="nome">Nome:</label><br> 
+    <input name="nome" type="text" maxlength="50" required placeholder="Inserisci nome"><br>
+    
+    <label for="marca">Marca:</label><br> 
+    <input name="marca" type="text" maxlength="50" required placeholder="Inserisci marca"><br>
+    
+    <label for="modello">Modello:</label><br> 
+    <input name="modello_auto" type="text" maxlength="50" required placeholder="Inserisci modello"><br>
+
+    <label for="descrizione">Descrizione:</label><br>
+    <textarea name="descrizione" maxlength="200" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
+    
+    <label for="prezzo">Prezzo:</label><br>
+    <input name="prezzo" type="text" pattern="^\d+(\.\d{1,2})?$" title="Inserisci un numero valido. Massimo due cifre decimali." required><br>
+
+    <label for="quantita">Quantita:</label><br> 
+    <input name="quantita" type="number" min="1" value="1" required style="text-align:center;"><br> 
+    
+    <label for="immagine">Immagine:</label><br>
+    <input name="immagine" type="file" accept="image/jpeg, image/png" required style="margin:auto;"><br>
+    
+    <input type="submit" value="Add" id="bottoneCatalogo"><input type="reset" value="Reset" id="bottoneCatalogo">
+</form>
+<div style="margin-bottom:20px">
+    <button onclick="hideInsertProduct()" class="button" id="hideButton">Nascondi inserimento</button>
+</div>
+
+</div>
+
+
+
 <!-- menù selezione per ordinare i prodotti per id, nome o prezzo-->
 <form action="ProductControl" method="get" id="sortForm">
     <input type="hidden" name="action" value="amministratore">
@@ -41,10 +86,8 @@
 </form>
 
 
-<div style="display: flex; justify-content: center; margin-right: 50%;">
-    <h2 style="color: white; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Prodotti</h2>
-</div>
-<table border="1" style="background-color: #90EE90;">
+<div class="table-container" id="containerTabella">
+<table border="1" class="tabellaProdotto">
     <tr>
         <th>Immagine</th>
         <th>ID</th>
@@ -91,42 +134,12 @@
     %>
 </table>
 
-<!-- Form di inserimento prodotti lato amministratore -->
-
-<div style="display: flex; justify-content: center; margin-right: 88%;">
-    <h2 style="color: rgb(0, 0, 0);">Inserisci</h2>
 </div>
-<form action="ProductControl?action=insert" method="post" class="form-container3" enctype="multipart/form-data">
-    
-    <label for="nome">Nome:</label><br> 
-    <input name="nome" type="text" maxlength="20" required placeholder="Inserisci nome"><br>
-    
-    <label for="marca">Marca:</label><br> 
-    <input name="marca" type="text" maxlength="20" required placeholder="Inserisci marca"><br>
-    
-    <label for="modello">Modello:</label><br> 
-    <input name="modello_auto" type="text" maxlength="20" required placeholder="Inserisci modello"><br>
-
-    <label for="descrizione">Descrizione:</label><br>
-    <textarea name="descrizione" maxlength="100" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
-    
-    <label for="prezzo">Prezzo:</label><br>
-    <input name="prezzo" type="text" pattern="^\d+(\.\d{1,2})?$" title="Inserisci un numero valido. Massimo due cifre decimali." required><br>
-
-    <label for="quantita">Quantita:</label><br> 
-    <input name="quantita" type="number" min="1" value="1" required><br> 
-    
-    <label for="immagine">Immagine:</label><br>
-    <input name="immagine" type="file" accept="image/jpeg, image/png" required><br>
-    
-    <input type="submit" value="Add"><input type="reset" value="Reset">
-</form>
-<form action="UserControl?action=logoututente" method="post" style="margin-bottom: 8.125rem; margin-top: 1.25rem;">
-    <input type="hidden" name="action" value="logout">
-    <input type="submit" value="Logout">
-</form>
 <%
         }
     }
 %>
+
+</div>
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>

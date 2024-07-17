@@ -47,7 +47,7 @@
     }
 </style>
 
-<div id="cart-container">
+<div class="bodyContainerCart"id="cart-container">
     <h1 id="cart-title">Carrello</h1>
     <%
         CartBean cart = (CartBean) session.getAttribute("cart");

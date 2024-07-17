@@ -33,51 +33,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Profilo Utente</title>
-    <style>
-        .form-container {
-            margin-top: 20px;
-        }
-        .form-container form {
-            margin-bottom: 20px;
-        }
-        .form-container input[type="text"], .form-container input[type="email"], .form-container input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-        .form-container input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-        }
-        .form-container input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-    </style>
+    <title>Area Personale</title>
 </head>
 <body>
-    <h2>Profilo Utente</h2>
+<div class="bodyContainerUtente">
+	<div class="areaPersonale">
+    <h2>Area Personale</h2>
 
     <% 
     String userId = (String) session.getAttribute("userid"); // Recupera l'userId dalla sessione
@@ -95,14 +56,15 @@
 
     <!-- Dati personali dell'utente -->
     <div>
-        <h3>Dati Personali</h3>
         <p>Username: <%= user.getUserid() %></p>
         <p>Telefono: <%= user.getTelefono() %></p>
         <p>Indirizzo: <%= capitalizeWords(user.getIndirizzo()) %>, <%= toUpperCase(user.getCitta()) %>, <%= toUpperCase(user.getProvincia()) %> - <%= user.getCap() %></p>
     </div>
-
+	<div id="reAdressButton">
+		<button onclick="reAdressForm()" class="button"  id="userBoldButton">Cambia Indirizzo</button>
+	</div>
     <!-- Form per la modifica dell'indirizzo e del telefono  -->
-    <div class="form-container">
+    <div class="form-container" id="form-container">
         <h3>Modifica Dati Indirizzo</h3>
         <form action="UserControl?action=changeUserLocation" method="post">
             <input type="hidden" name="userid" value="<%= user.getUserid() %>">
@@ -121,7 +83,7 @@
             <label for="telefono">Telefono</label>
             <input type="text" id="telefono" name="telefono" value="<%= user.getTelefono() %>" required>
             
-            <input class="button" type="submit" value="Aggiorna Indirizzo">
+            <input class="button" type="submit" value="Aggiorna Indirizzo" id="updateAdress" onclick="updateAdressForm()">
         </form>
     </div>
 
@@ -149,101 +111,25 @@
         <input type="text" id="cvv" name="cvv">
     </div>
 
-    <button class="button" type="submit">Aggiorna metodo di pagamento</button>
+    <button class="button" type="submit" id="userBoldButton">Aggiorna metodo di pagamento</button>
     </form>
-
-
-    <script>
-        document.getElementById("payment-form").addEventListener("submit", function(event) {
-            if (!validateForm()) {
-                event.preventDefault(); //se la validazione fallisce il form non viene submit
-            }
-        });
-        
-        function validateForm() { //validazione della correttezza dei dati 
-            var tipoPagamento = document.getElementById("tipo_pagamento").value;
-            var valid = true;
-        
-            if (tipoPagamento === "Carta di Credito") {
-                var ccNumber = document.getElementById("cc_account_id").value;
-                var dataScadenza = document.getElementById("data_scadenza").value;
-                var cvv = document.getElementById("cvv").value;
-                
-                // Validazione del numero della carta di credito
-                if (!/^\d{16}$/.test(ccNumber)) {
-                    alert("Inserisci un nuemero di carta di credito valido (16 cifre).");
-                    valid = false;
-                }
-        
-                // Validazione della data di scadenza
-                var today = new Date();
-                var expirationDate = new Date(dataScadenza);
-                if (expirationDate <= today) {
-                    alert("Inserisci una data di scadenza valida.");
-                    valid = false;
-                }
-        
-                // Validazione del CVV
-                if (!/^\d{3}$/.test(cvv)) {
-                    alert("Inserisci un CVV valido (3 cifre).");
-                    valid = false;
-                }
-            }
-        
-            return valid;
-        }
-        
-        function togglePaymentFields() {
-            var tipoPagamento = document.getElementById("tipo_pagamento").value;
-            var paypalFields = document.getElementById("paypal_fields");
-            var creditCardFields = document.getElementById("credit_card_fields");
-        
-            if (tipoPagamento === "PayPal") {
-                paypalFields.style.display = "block";
-                creditCardFields.style.display = "none";
-                
-                document.getElementById("paypal_account_id").disabled = false;
-                document.getElementById("cc_account_id").disabled = true;
-                document.getElementById("data_scadenza").disabled = true;
-                document.getElementById("cvv").disabled = true;
-            } else if (tipoPagamento === "Carta di Credito") {
-                paypalFields.style.display = "none";
-                creditCardFields.style.display = "block";
-                
-                document.getElementById("paypal_account_id").disabled = true;
-                document.getElementById("cc_account_id").disabled = false;
-                document.getElementById("data_scadenza").disabled = false;
-                document.getElementById("cvv").disabled = false;
-            } else {
-                paypalFields.style.display = "none";
-                creditCardFields.style.display = "none";
-                
-                document.getElementById("paypal_account_id").disabled = true;
-                document.getElementById("cc_account_id").disabled = true;
-                document.getElementById("data_scadenza").disabled = true;
-                document.getElementById("cvv").disabled = true;
-            }
-        }
-        
-        togglePaymentFields(); //chiamata utile a inizializzare il form all'apertura della pagina
-        </script>
-
-    
-
-    <!-- Tasti per admin -->
+    </div>
+    <div class="areaPersonale">
+    	<!-- Tasti per admin -->
     <% if ("Admin".equals(user.getTipo())) { %>
-        <a href="catalogo.jsp" class="button">Catalogo</a>
-        <a href="ordini-admin.jsp" class="button">Ordini</a>
-        <a href="lista-utenti.jsp" class="button">Utenti</a>
+    	<h2>Area Admin</h2>
+        <a href="catalogo.jsp" class="button" id="userButton">Catalogo</a>
+        <a href="ordini-admin.jsp" class="button" id="userButton">Ordini</a>
+        <a href="lista-utenti.jsp" class="button" id="userButton">Utenti</a>
     <% } %>
 
     <% if("Customer".equals(user.getTipo())){ %>
-        <a href="ordini-customer.jsp" class="button">Ordini</a>
+        <a href="ordini-customer.jsp" class="button" id="userButton">Ordini</a>
     <% } %>
 
     <!-- Pulsante di logout -->
     <form action="UserControl?action=logoututente" method="post">
-        <input type="submit" value="Logout">
+        <input type="submit" class="button" value="Logout" id="userBoldButton">
     </form>
     
     <%} else {
@@ -252,7 +138,12 @@
     }
     }
     %>
+    </div>
+
+    
+</div>
 
 </body>
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>
 </html>

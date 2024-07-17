@@ -11,29 +11,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Dettagli Prodotto</title>
-    <style>
-        /* Stili CSS per il pulsante */
-        .add-to-cart-btn {
-            background-color: #4CAF50; /* Colore di sfondo verde */
-            color: white;
-            padding: 12px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: none;
-        }
-        .add-to-cart-btn:hover {
-            background-color: #45a049; /* Cambia il colore al passaggio del mouse */
-        }
-    </style>
+
 </head>
 <body>
-    <h2>Dettagli Prodotto</h2>
 
     <% 
     int productId = Integer.parseInt(request.getParameter("id")); // Recupera l'id del prodotto dalla richiesta
@@ -48,32 +28,49 @@
     
     if (product != null) { // Se il prodotto è stato trovato nel database
     %>
-
-    <div>
-        <h3><%= product.getNome() %></h3>
-        <p><%= product.getDescrizione() %></p>
-        <p>Prezzo: € <%= product.getPrezzo() %></p>
-        <p>Quantità disponibile: <%= product.getQuantita() %></p>
-        <p>Marca: <%= product.getMarca() %></p>
-        <p>Modello auto: <%= product.getModelloAuto() %></p>
-        
+<div class="bodyContainerCart">
+	<div class="containerProdotto">
+    
         <!-- Mostra l'immagine del prodotto -->
         <%
         byte[] immagine = product.getImmagine();
         if (immagine != null && immagine.length > 0) {
             String base64image = java.util.Base64.getEncoder().encodeToString(immagine);
         %>
-        <img src="data:image/jpeg;base64,<%= base64image %>" alt="<%= product.getNome() %>" style="width: 100px; height: 100px;">
+        <div class="leftColumn">
+        	<div class="imgCornice">
+        	<img src="data:image/jpeg;base64,<%= base64image %>" alt="<%= product.getNome() %>">
+        	</div>
+        </div>
         <% 
         } 
         %>
+        <div class="centerColumn">
+        <h3 style="font-weight: bolder;"><%= product.getNome() %></h3>
+        <p>Marca: <%= product.getMarca() %></p>
+        <p>Modello auto: <%= product.getModelloAuto() %></p>
+        <p><%= product.getDescrizione() %></p>
         
-        <!-- Pulsante per aggiungere al carrello -->
+        
+     </div>
+        <div class="rightColumn">
+        <p>Prezzo: € <%= product.getPrezzo() %></p>
+        <p>Quantità disponibile: </p> 
+        <p><%= product.getQuantita() %></p>
+         <!-- Pulsante per aggiungere al carrello -->
         <form action="ProductControl?action=addProduct&idprodotto=<%= product.getId() %>" method="post">
             <input type="hidden" name="productId" value="<%= product.getId() %>">
-            <input type="submit" value="Aggiungi al carrello" class="add-to-cart-btn">
+            <input type="submit" value="Aggiungi al carrello" id="addButton">
+            
         </form>
-    </div>
+        <!--ESPERIMENTO -->
+        <form action="OrdineControl" method="post">
+                        <input type='hidden' name='action' value='saveorder'>
+                        <button type='submit' id="addButton">Compra subito!</button>
+        </form>
+       </div>
+   </div>
+
 
     <% 
     } else {
@@ -81,7 +78,8 @@
         out.println("<p>Prodotto non trovato.</p>");
     }
     %>
-
+    </div>
 </body>
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>
 </html>

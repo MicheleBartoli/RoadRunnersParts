@@ -28,7 +28,8 @@
             UserBean searchedUser = (UserBean) request.getAttribute("searchedUser");
             boolean hasSearchedUser = searchedUser != null;  //boolean per capire se è stato trovato 
 %>
-
+<div style="heign:200px; margin-bottom:100px"></div>
+<div class="containerUtenti">
 <!-- Form per la ricerca -->
 <form action="UserControl" method="GET" style="margin-top: 10px;">
     <input type="hidden" name="action" value="searchUser">
@@ -37,12 +38,13 @@
     <input type="submit" value="Cerca">
 </form>
 
-<div style="display: flex; justify-content: center; margin-right: 50%;">
-    <h2 style="color: black; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Risultato della Ricerca</h2>
+<div style="margin-top: 50px">
+    <h2>Risultato della Ricerca</h2>
 </div>
 
 <% if (hasSearchedUser) { %>
-    <table border="1" style="background-color: #90EE90; margin-bottom: 20px;">
+<div class="table-container">
+    <table border="1" class="tabellaUtenti">
         <tr>
             <th>User ID</th>
             <th>Tipo</th>
@@ -64,15 +66,16 @@
             <td><%= searchedUser.getMetodoPagamento() %></td>
         </tr>
     </table>
+</div>
     <% } else { %>
         <p style="color: red;">Utente non trovato o inserisci un utente per ricercarlo.</p>
     <% } %>
 
-<div style="display: flex; justify-content: center; margin-right: 50%;">
-    <h2 style="color: rgb(0, 0, 0); font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">Utenti</h2>
+<div>
+    <h2>Utenti</h2>
 </div>
-
-<table border="1" style="background-color: #90EE90;">
+<div class="table-container">
+<table border="1" class="tabellaUtenti">
     <tr>
         <th>User ID</th>
         <th>Tipo</th>
@@ -98,5 +101,7 @@
     <% } %>
     <% } %>
 </table>
-
+</div>
+</div>
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>
