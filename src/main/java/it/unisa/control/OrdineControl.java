@@ -262,6 +262,10 @@ public class OrdineControl extends HttpServlet {
 	                document.add(new Paragraph("RoadRunnerParts", font));
 	                document.add(new Chunk("\n"));
 
+                    document.add(new Phrase("CLIENTE:", font_bold));
+	                document.add(new Paragraph(order.getUserid(), font));
+	                document.add(new Chunk("\n"));
+
 	                document.add(new Phrase("INDIRIZZO FATTURA:", font_bold));
 	                document.add(new Paragraph(order.getIndirizzo() + ", " + order.getCitta() + ", " + order.getProvincia() + ", " + order.getCap() +", " + order.getTelefono(), font));
 	                document.add(new Chunk("\n"));

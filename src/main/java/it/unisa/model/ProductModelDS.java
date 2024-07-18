@@ -477,7 +477,7 @@ public class ProductModelDS implements ProductModel {
 		PreparedStatement preparedStatement = null;
 		List<ProductBean> products = new ArrayList<ProductBean>();
 
-		String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE quantita > 0";
+		String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME;
 		
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -509,20 +509,20 @@ public class ProductModelDS implements ProductModel {
 		return products;
 	}
 
-	public Collection<ProductBean> getProductsByBrandAndModel(String marca, String modello_auto) throws SQLException { //RECUPERA PRODOTTI PER MARCA E MODELLO AUTO
+	public List<ProductBean> doRetrieveByMarcaModello(String marca, String modello_auto) throws SQLException { //RECUPERA PRODOTTI PER MARCA E MODELLO AUTO
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		List<ProductBean> products = new LinkedList<ProductBean>();
 		try {
 			connection = ds.getConnection();
-			String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE marca = ? AND modello_auto = ?";
+			String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE marca LIKE ? AND modello_auto LIKE ?";
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, marca);
-			preparedStatement.setString(2, modello_auto);
+			preparedStatement.setString(1,"%"+ marca + "%");
+			preparedStatement.setString(2,"%" + modello_auto + "%");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
-				bean.setId(rs.getInt("id"));
+				bean.setId(rs.getInt("idprodotto"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarca(rs.getString("marca"));
 				bean.setModelloAuto(rs.getString("modello_auto"));
@@ -897,5 +897,44 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 
 	    return orderBean;
 	}
+
+	public static List<ProductBean> doRetrieveRandom(int limit) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        List<ProductBean> products = new ArrayList<>();
+
+        try {
+            connection = ds.getConnection();
+            String query = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " ORDER BY RAND() LIMIT ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, limit);
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                ProductBean product = new ProductBean();
+                product.setId(rs.getInt("idprodotto"));
+                product.setNome(rs.getString("nome"));
+	            product.setDescrizione(rs.getString("descrizione"));
+	            product.setPrezzo(rs.getFloat("prezzo"));
+	            product.setQuantita(rs.getInt("quantita"));
+	            product.setMarca(rs.getString("marca"));
+	            product.setModelloAuto(rs.getString("modello_auto"));
+	            product.setImmagine(rs.getBytes("immagine"));
+                products.add(product);
+            }
+        } finally {
+			try {
+	            if (rs != null) rs.close();
+	            if (preparedStatement != null) preparedStatement.close();
+	        } finally {
+	            if (connection != null) connection.close();
+	        }
+        }
+
+        return products;
+    }
+
+
 }
 

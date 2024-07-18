@@ -1,17 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
 <%@ page import="it.unisa.model.ProductBean" %>
 <%@ page import="it.unisa.model.ProductModelDS" %>
-<%@ page import="java.util.Base64" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="includes/header.jsp" %>
 
-
-<!DOCTYPE html>
-<html>
 <head>
-    <meta charset="UTF-8">
-    <title>RoadRunnerParts</title>
-
+    <title>Catalogo Prodotti</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+        }
         .catalog-container {
             display: flex;
             flex-wrap: wrap;
@@ -57,30 +66,31 @@
         .tile .details-button:hover {
             background-color: #218838;
         }
+        .search-container {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
     </style>
 </head>
+
 <body>
-    <div class="bodyContainer">
-        <%@ include file="includes/header.jsp" %>
+    <h1>Catalogo Prodotti</h1>
 
-        <div class="slideshow-container">
-            <div class="mySlides">
-                <img src="images/slideshow/image1.jpg" style="width:100%">
-            </div>
-            <div class="mySlides">
-                <img src="images/slideshow/image2.jpg" style="width:100%">
-            </div>
-            <div class="mySlides">
-                <img src="images/slideshow/image3.jpg" style="width:100%">
-            </div>
-        </div>
+    <div class="search-container">
+        <form action="ProductControl" method="get">
+            <input type="hidden" name="action" value="cercamarcamodello">
+            <input type="text" name="marca" placeholder="Marca Auto" required>
+            <input type="text" name="modello" placeholder="Modello Auto" required>
+            <button type="submit">Cerca Ricambio</button>
+        </form>
     </div>
-
+    
     <div class="catalog-container">
         <%
-            List<ProductBean> prodotti = (List<ProductBean>) request.getAttribute("randomProducts");
+            List<ProductBean> prodotti = (List<ProductBean>) request.getAttribute("prodotti");
             if (prodotti == null || prodotti.isEmpty()) {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductControl?action=prodottirandom");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductControl?action=products-customer");
                 dispatcher.forward(request, response);
                 return;
             }
@@ -112,10 +122,7 @@
             }
         %>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
-    
-<%@ include file="includes/footer.jsp" %>
 </body>
+
+<%@ include file="includes/footer.jsp" %>
 </html>

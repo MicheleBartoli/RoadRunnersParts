@@ -22,6 +22,7 @@ import it.unisa.model.ProductBean;
 import it.unisa.model.ProductModelDS;
 import com.google.gson.Gson;
 
+
 @MultipartConfig
 public class ProductControl extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -65,6 +66,15 @@ public class ProductControl extends HttpServlet {
                         break;
                     case "searchsuggestions": 
                         searchSuggestions(request, response);
+                        break;
+                    case "products-customer":
+                        productsCustomer(request, response);
+                        break;
+                    case "cercamarcamodello":
+                        cercaMarcaModello(request, response);
+                        break;
+                    case "prodottirandom":
+                        randomProduct(request, response);
                         break;
                     default:
                         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
@@ -222,6 +232,18 @@ public class ProductControl extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    //preleva tutti i prodotti per mostrarli lato customer
+    private void productsCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String sortOption = request.getParameter("sortOption");
+        if (sortOption == null || sortOption.isEmpty()) {
+            sortOption = "idprodotto";
+        }
+        request.removeAttribute("prodotti");
+        request.setAttribute("prodotti", model.doRetrieveAll(sortOption));
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/catalogo-customer.jsp");
+        dispatcher.forward(request, response);
+    }
+
     // Metodo per ottenere i suggerimenti di ricerca
     private void searchSuggestions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String query = request.getParameter("query");
@@ -232,4 +254,21 @@ public class ProductControl extends HttpServlet {
         response.getWriter().write(new Gson().toJson(suggestions));
     }
 
+    private void cercaMarcaModello(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String marca = request.getParameter("marca");
+        String modello = request.getParameter("modello");
+        List<ProductBean> products = model.doRetrieveByMarcaModello(marca, modello);
+        request.removeAttribute("prodotti");
+        request.setAttribute("prodotti", products);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/catalogo-customer.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void randomProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<ProductBean> randomProducts = model.doRetrieveRandom(3); // Recupera 3 prodotti casuali
+        request.removeAttribute("randomProducts");
+        request.setAttribute("randomProducts", randomProducts); 
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");            
+        dispatcher.forward(request, response);
+    }
 }
