@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
+
 public class CartBean {
 
 	private List <ProductBean> products;
@@ -37,9 +39,13 @@ public class CartBean {
 		return total;
 	}
 
-	@Override
-	public String toString(){
-		return "Cart [products=" + products + "]";
-	}
-	
+	 public ProductBean getProductById(int productId) {
+        for (ProductBean product : products) {
+            if (product.getId() == productId) {
+                return product;
+            }
+        }
+        return null; // Restituisce null se il prodotto non viene trovato
+    }
+
 }

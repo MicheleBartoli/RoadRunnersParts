@@ -19,6 +19,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+
+
 import java.sql.Statement;
 import java.sql.Date;
 
@@ -106,7 +113,8 @@ public class ProductModelDS implements ProductModel {
 		}
 	}
 
-	public synchronized void doSaveOrder(String userid, CartBean cart) throws SQLException {
+	
+    public synchronized void doSaveOrder(String userid, CartBean cart) throws SQLException {
     Connection connection = null;
     PreparedStatement insertOrderStatement = null;
     PreparedStatement updateProductQuantityStatement = null;
@@ -178,7 +186,10 @@ public class ProductModelDS implements ProductModel {
             closeEx.printStackTrace();
         }
     }
-}
+        
+    }
+
+
 
 	//metodo per generare un id ordine random da assegnare a tutti i prodotti contenuti nello stesso ordine
 	private int generateOrderId() {
@@ -319,7 +330,7 @@ public class ProductModelDS implements ProductModel {
     	PreparedStatement preparedStatement = null;
     	Connection connection = null;
     	String selectSQL = "SELECT o.idordine, o.userid, o.idprodotto_ordinato, o.prezzo_ordine, " +
-            "o.indirizzo, o.citta, o.provincia, o.cap, o.telefono, o.data_ordine, " +
+            "o.indirizzo, o.citta, o.provincia, o.cap, o.telefono, o.data_ordine, o.stato, " +
             "p.idprodotto, p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, " +
             "p.prezzo AS prezzo_prodotto, p.quantita AS quantita_prodotto, " +
             "p.marca, p.modello_auto, p.immagine " +
@@ -352,6 +363,7 @@ public class ProductModelDS implements ProductModel {
                 orderBean.setCap(rs.getString("cap"));
                 orderBean.setTelefono(rs.getInt("telefono"));
                 orderBean.setDataOrdine(rs.getTimestamp("data_ordine"));
+				orderBean.setStato(rs.getBoolean("stato"));
                 orderBean.setProdotti(new ArrayList<>());
                 orderMap.put(idOrdine, orderBean);
             }
@@ -677,7 +689,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
     try {
         connection = ds.getConnection();
         String selectSQL = "SELECT o.idordine, o.userid, o.prezzo_ordine, o.indirizzo, o.citta, " +
-                "o.provincia, o.cap, o.telefono, o.data_ordine, p.idprodotto, p.nome, p.descrizione, " +
+                "o.provincia, o.cap, o.telefono, o.data_ordine, o.stato, p.idprodotto, p.nome, p.descrizione, " +
                 "p.prezzo, p.quantita, p.marca, p.modello_auto, p.immagine " +
                 "FROM " + ProductModelDS.TABLE_NAME3 + " o " +
                 "JOIN " + ProductModelDS.TABLE_NAME + " p ON o.idprodotto_ordinato = p.idprodotto " +
@@ -700,6 +712,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
                 orderBean.setCap(rs.getString("cap"));
                 orderBean.setTelefono(rs.getInt("telefono"));
                 orderBean.setDataOrdine(rs.getTimestamp("data_ordine"));
+				orderBean.setStato(rs.getBoolean("stato"));
                 orderBean.setProdotti(new ArrayList<>()); 
                 orderMap.put(idOrdine, orderBean);
             }
@@ -740,7 +753,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 	    try {
 	        connection = ds.getConnection();
 	        String selectSQL = "SELECT o.idordine, o.userid, o.prezzo_ordine, o.indirizzo, o.citta, " +
-	                "o.provincia, o.cap, o.telefono, o.data_ordine, p.idprodotto, p.nome, p.descrizione, " +
+	                "o.provincia, o.cap, o.telefono, o.data_ordine, o.stato, p.idprodotto, p.nome, p.descrizione, " +
 	                "p.prezzo, p.quantita, p.marca, p.modello_auto, p.immagine " +
 	                "FROM " + ProductModelDS.TABLE_NAME3 + " o " +
 	                "JOIN " + ProductModelDS.TABLE_NAME + " p ON o.idprodotto_ordinato = p.idprodotto " +
@@ -766,6 +779,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 	                orderBean.setCap(rs.getString("cap"));
 	                orderBean.setTelefono(rs.getInt("telefono"));
 	                orderBean.setDataOrdine(rs.getTimestamp("data_ordine"));
+					orderBean.setStato(rs.getBoolean("stato"));
 	                orderBean.setProdotti(new ArrayList<>());
 	                orderMap.put(idOrdine, orderBean);
 	            }
@@ -828,7 +842,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
     return suggestions;
 }
 
-	public OrderBean retrieveOrderById(int orderId) throws SQLException {
+	public OrderBean retrieveOrderById(int orderId) throws SQLException {  //RECUPERA ORDINE CON ANNESSI PRODOTTI DAL DB
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet rs = null;
@@ -837,7 +851,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 	    try {
 	        connection = ds.getConnection();
 	        String selectSQL = "SELECT o.idordine, o.userid, o.prezzo_ordine, o.indirizzo, o.citta, " +
-	                "o.provincia, o.cap, o.telefono, o.data_ordine, " +
+	                "o.provincia, o.cap, o.telefono, o.data_ordine, o.stato, " +
 	                "p.idprodotto, p.nome, p.descrizione, p.prezzo, p.quantita, p.marca, p.modello_auto, p.immagine " +
 	                "FROM ordine o " +
 	                "JOIN prodotto p ON o.idprodotto_ordinato = p.idprodotto " +
@@ -863,6 +877,7 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 	                order.setCap(rs.getString("cap"));
 	                order.setTelefono(rs.getInt("telefono"));
 	                order.setDataOrdine(rs.getTimestamp("data_ordine"));
+					order.setStato(rs.getBoolean("stato"));
 	                order.setProdotti(new ArrayList<>());
 	                orderMap.put(idOrdine, order);
 	            }
@@ -881,7 +896,6 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 	            order.setPrezzoTotale(order.getPrezzoTotale() + product.getPrezzo()); // Aggiorna il prezzo totale dell'ordine
 	        }
 
-	        // Se l'ordine è stato trovato, restituisci il primo elemento della mappa (dovrebbe essercene solo uno)
 	        if (!orderMap.isEmpty()) {
 	            orderBean = orderMap.values().iterator().next();
 	        }
@@ -898,7 +912,8 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
 	    return orderBean;
 	}
 
-	public static List<ProductBean> doRetrieveRandom(int limit) throws SQLException {
+
+	public static List<ProductBean> doRetrieveRandom(int limit) throws SQLException {  //RECUPERA 3 PRODOTTI RANDOM DAL DB (usato nella home per suggerimenti prodotti)
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -935,6 +950,53 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
         return products;
     }
 
+	public MetodoPagamentoBean doRetrievePayamentMethod(String userId) throws SQLException{ //METODO CHE RECUPERA IL METODO DI PAGAMENTO DI UN UTENTE
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        MetodoPagamentoBean metodoPagamento = null;
 
+        try {
+            connection = ds.getConnection();
+            String query = "SELECT * FROM metodi_pagamento WHERE user_id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, userId);
+            rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                metodoPagamento = new MetodoPagamentoBean();
+                metodoPagamento.setIdPagamento(rs.getString("idmetodopagamento"));
+                metodoPagamento.setUserIdPagamento(rs.getString("user_id"));
+                metodoPagamento.setTipoPagamento(rs.getString("tipo_pagamento"));
+                metodoPagamento.setAccountId(rs.getString("account_id"));
+                metodoPagamento.setDataScadenza(rs.getDate("data_scadenza"));
+                metodoPagamento.setCvv(rs.getString("cvv"));
+            }
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } finally {
+                if (connection != null) connection.close();
+            }
+        }
+
+        return metodoPagamento;
+    }
+
+	public void updateOrderStatus(int idordine) throws SQLException { //METODO CHE MI AGGIORNA LO STATO DA "non spedito" a "spedito"
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    	try {
+        	conn = ds.getConnection();
+        	String sql = "UPDATE ordine SET stato = TRUE WHERE idordine = ?";
+        	stmt = conn.prepareStatement(sql);
+        	stmt.setInt(1, idordine);
+        	stmt.executeUpdate();
+    	} finally {
+        	if (stmt != null) stmt.close();
+        	if (conn != null) conn.close();
+    	}
+	}
 }
 

@@ -18,6 +18,7 @@ public class OrderBean implements Serializable {
     private List<ProductBean> prodotti;
     private int telefono; 
     private Timestamp dataOrdine; 
+    private boolean stato;
 
     public OrderBean() {
         idordine = "";
@@ -30,6 +31,7 @@ public class OrderBean implements Serializable {
         prodotti = null;
         telefono = 0; 
         dataOrdine = null; 
+        stato = false;
     }
 
     public String getIdordine() {
@@ -111,6 +113,14 @@ public class OrderBean implements Serializable {
 
     public void setDataOrdine(Timestamp dataOrdine) {
         this.dataOrdine = dataOrdine;
+    }
+
+    public boolean getStato() {
+        return stato;
+    }
+
+    public void setStato(boolean stato) {
+        this.stato = stato;
     }
 
     //calcola il prezzo totale dell'ordine

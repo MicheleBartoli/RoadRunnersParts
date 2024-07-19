@@ -7,6 +7,18 @@
 
 <!-- PAGINA CHE MOSTRA, LATO CUSTOMER LOGGATO, TUTTI GLI ORDINI CHE HA EFFETTUATO -->
 
+<style>
+    .spedito {
+    color: green;
+    font-weight: bold;
+}
+
+.non-spedito {
+    color: red;
+    font-weight: bold;
+}
+</style>
+
 <%
     String userid = (String) session.getAttribute("userid");
     if (userid == null) {
@@ -39,6 +51,7 @@
         <th>Provincia</th>
         <th>Cap</th>
         <th>Data Ordine</th>
+        <th>Stato</th>
         <th>Prezzo Totale</th>
         <th>Azioni</th>
     </tr>
@@ -51,6 +64,9 @@
             <td><%= order.getProvincia() %></td>
             <td><%= order.getCap() %></td>
             <td><%= order.getDataOrdine() %></td>
+            <td class="<%= order.getStato() ? "spedito" : "non-spedito" %>">
+                <%= order.getStato() ? "Spedito" : "Non Spedito" %>
+            </td>
             <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
             <td>
                 <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>

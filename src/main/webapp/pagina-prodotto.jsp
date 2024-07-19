@@ -54,7 +54,7 @@
         
      </div>
         <div class="rightColumn">
-        <p>Prezzo: € <%= product.getPrezzo() %></p>
+        1<p>Prezzo: € <%= String.format("%.2f", product.getPrezzo()) %></p>
         <p>Quantità disponibile: </p> 
         <p><%= product.getQuantita() %></p>
          <!-- Pulsante per aggiungere al carrello -->

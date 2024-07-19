@@ -89,6 +89,9 @@ public class OrdineControl extends HttpServlet {
                     case "generafattura":
                         generaFattura(request,response);
                         break;
+                    case "updatestato":
+                        updateStato(request, response);
+                        break;
                     default:
                         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
                 }
@@ -444,5 +447,23 @@ public class OrdineControl extends HttpServlet {
 	    } else {
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ordine mancante");
 	    }
-	}
+    }
+
+    //metodo che aggiorna lo stato di un ordine
+    public void updateStato(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String orderIdParam = request.getParameter("idordine");
+        if (orderIdParam != null ) {
+            int orderId = Integer.parseInt(orderIdParam);
+            try {
+                model.updateOrderStatus(orderId);
+                response.sendRedirect("ordini-admin.jsp");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore aggiornando lo stato dell'ordine");
+            }
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ordine o stato mancante");
+        }
+    }
+
 }

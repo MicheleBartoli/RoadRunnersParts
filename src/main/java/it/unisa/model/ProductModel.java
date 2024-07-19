@@ -8,7 +8,7 @@ public interface ProductModel {
 
 	public void doSaveUser(UserBean user) throws SQLException;
 
-	public void doSaveOrder(String userid, CartBean cart) throws SQLException;
+	//public void doSaveOrder(String userid, CartBean cart) throws SQLException;
 
 	public boolean doDelete(int code) throws SQLException;
 

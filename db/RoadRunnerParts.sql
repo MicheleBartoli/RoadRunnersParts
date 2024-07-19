@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS prodotto;
 
 CREATE TABLE prodotto (	
   idprodotto int primary key AUTO_INCREMENT,
-  nome varchar(50) not null,
+  nome varchar(100) not null,
   descrizione varchar(200),
   prezzo float default 0,
   quantita int default 1,
@@ -38,6 +38,7 @@ CREATE TABLE ordine (
   cap varchar(10) not null,
   telefono int not null,
   data_ordine TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  stato BOOLEAN DEFAULT FALSE,
 
   FOREIGN KEY (userid) REFERENCES user(userid),
   FOREIGN KEY (idprodotto_ordinato) REFERENCES prodotto(idprodotto)

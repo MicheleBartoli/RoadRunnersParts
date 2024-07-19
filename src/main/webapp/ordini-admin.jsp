@@ -6,6 +6,17 @@
 <%@ include file="includes/header.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    .spedito {
+    color: green;
+    font-weight: bold;
+}
+
+.non-spedito {
+    color: red;
+    font-weight: bold;
+}
+</style>
 
 <!-- PAGINA CHE MOSTRA TUTTI GLI ORDINI LATO AMMINISTRATORE CHE PERMETTE LA RICERCA DI ORDINI PER UTENTE, DALLA DATA ALLA DATA E MOSTRA TUTTI GLI ORDINI-->
 <%
@@ -60,6 +71,7 @@
             <th>Provincia</th>
             <th>Cap</th>
             <th>Data Ordine</th>
+            <th>Stato</th>
             <th>Prezzo Totale</th>
             <th>Azioni</th>
         </tr>
@@ -72,10 +84,14 @@
                 <td><%= order.getProvincia() %></td>
                 <td><%= order.getCap() %></td>
                 <td><%= order.getDataOrdine() %></td>
+                <td class="<%= order.getStato() ? "spedito" : "non-spedito" %>">
+                    <%= order.getStato() ? "Spedito" : "Non Spedito" %>
+                </td>
                 <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
                 <td>
                     <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>
                     <a href="OrdineControl?action=generafattura&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
+                    <a href="OrdineControl?action=updatestato&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></a>
                 </td>
             </tr>
         <% } %>
@@ -110,6 +126,7 @@
             <th>Provincia</th>
             <th>Cap</th>
             <th>Data Ordine</th>
+            <th>Stato</th>
             <th>Prezzo Totale</th>
             <th>Azioni</th>
         </tr>
@@ -122,10 +139,14 @@
                 <td><%= order.getProvincia() %></td>
                 <td><%= order.getCap() %></td>
                 <td><%= order.getDataOrdine() %></td>
+                <td class="<%= order.getStato() ? "spedito" : "non-spedito" %>">
+                    <%= order.getStato() ? "Spedito" : "Non Spedito" %>
+                </td>
                 <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
                 <td>
                     <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>
                     <a href="OrdineControl?action=generafattura&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
+                    <a href="OrdineControl?action=updatestato&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></a>
                 </td>
             </tr>
         <% } %>
@@ -149,6 +170,7 @@
         <th>Provincia</th>
         <th>Cap</th>
         <th>Data Ordine</th>
+        <th>Stato</th>
         <th>Prezzo Totale</th>
         <th>Azioni</th>
     </tr>
@@ -161,10 +183,14 @@
             <td><%= order.getProvincia() %></td>
             <td><%= order.getCap() %></td>
             <td><%= order.getDataOrdine() %></td>
+            <td class="<%= order.getStato() ? "spedito" : "non-spedito" %>">
+                <%= order.getStato() ? "Spedito" : "Non Spedito" %>
+            </td>
             <td><%= String.format("%.2f", order.getPrezzoTotale()) %> €</td>
             <td>
                 <a href="OrdineControl?action=orderdetails&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a>
                 <a href="OrdineControl?action=generafattura&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i></a>
+                <a href="OrdineControl?action=updatestato&idordine=<%= order.getIdordine() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></a>
             </td>
         </tr>
     <% } %>
