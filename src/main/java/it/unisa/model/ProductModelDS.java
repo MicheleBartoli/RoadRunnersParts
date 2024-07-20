@@ -23,9 +23,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-
-
-
 import java.sql.Statement;
 import java.sql.Date;
 
@@ -185,17 +182,45 @@ public class ProductModelDS implements ProductModel {
         } catch (SQLException closeEx) {
             closeEx.printStackTrace();
         }
-    }
-        
+    } 
     }
 
 
 
 	//metodo per generare un id ordine random da assegnare a tutti i prodotti contenuti nello stesso ordine
-	private int generateOrderId() {
-    Random random = new Random();
-    return random.nextInt(1000000); // Genera un numero casuale tra 0 e 999999
-	}
+    public synchronized int generateOrderId() throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int nextId = 1;
+
+        String query = "SELECT MAX(idordine) AS max_id FROM ordine";
+
+        try {
+            connection = ds.getConnection();
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int maxId = resultSet.getInt("max_id");
+                nextId = maxId + 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException closeEx) {
+                closeEx.printStackTrace();
+            }
+        }
+
+        return nextId;
+    }
+
 
 	public synchronized void doChange(ProductBean prodotto) throws SQLException { //MODIFICA PRODOTTO NEL DB
 		Connection connection = null;
@@ -999,4 +1024,3 @@ private boolean checkMetodoPagamentoEsistente(String userId) throws SQLException
     	}
 	}
 }
-

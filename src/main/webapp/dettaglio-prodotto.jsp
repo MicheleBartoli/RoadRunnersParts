@@ -6,12 +6,12 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- PAGINA CHE VIENE APERTA QUANDO SI VUOLE CAMBIARE QUALCHE ATTRIBUTO DI UN RICAMBIO LATO AMMINISTRATORE (da catalogo.jsp) (non è la pagina del prodotto che visualizzano i clienti) -->
 
+<!-- PAGINA CHE VIENE APERTA QUANDO SI VUOLE CAMBIARE QUALCHE ATTRIBUTO DI UN RICAMBIO LATO AMMINISTRATORE (da catalogo.jsp) (non è la pagina del prodotto che visualizzano i clienti) -->
 <%
+    
     ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 %>
-
 
 <body>
 <div class="bodyContainer">
@@ -79,16 +79,12 @@
     	</div>
     </div>
     </div>
-    <%
-        if("true".equals(request.getAttribute("verificatarocca"))){
-    %>
+
         <p style="text-align: center; color: white; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true" style="margin-right: 0.3125rem;"></i>Modifica avvenuta con successo<i class="fa fa-check-circle" aria-hidden="true" style="margin-left: 0.3125rem;"></i></p>
-    <%
-    }
-    %>
     <%
         }
     %>
+
     </form>
     </div>
    

@@ -22,7 +22,6 @@ import it.unisa.model.ProductBean;
 import it.unisa.model.ProductModelDS;
 import com.google.gson.Gson;
 
-
 @MultipartConfig
 public class ProductControl extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -91,17 +90,28 @@ public class ProductControl extends HttpServlet {
 
     //aggiungi prodotto al carrello 
     private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        HttpSession session = request.getSession();
-        int id = Integer.parseInt(request.getParameter("idprodotto"));
+       HttpSession session = request.getSession();
         CartBean cart = (CartBean) session.getAttribute("cart");
         if (cart == null) {
             cart = new CartBean();
             session.setAttribute("cart", cart);
         }
-        ProductBean product = model.doRetrieveByKey(id);
-        cart.addProduct(product);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
-        dispatcher.forward(request, response);
+
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        try {
+            ProductBean product = model.doRetrieveByKey(productId);
+            cart.addProduct(product);
+            
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"success\": true}");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"success\": false}");
+        }
+        return; 
     }
 
     //leggere i dettagli di un prodotto dal db 

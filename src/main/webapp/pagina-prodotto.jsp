@@ -1,17 +1,18 @@
 <%@ page import="it.unisa.model.ProductBean" %>
 <%@ page import="it.unisa.model.ProductModelDS" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="includes/header.jsp" %>
 
-<!-- PAGINE SPECIFICA DI UN PRODOTTO CHE MOSTRA TUTTI I SUOI DETTAGLI E OFFRE LA POSSIBILITA' DI ACQUISTARLO -->
+<!-- PAGINA SPECIFICA DI UN PRODOTTO CHE MOSTRA TUTTI I SUOI DETTAGLI E OFFRE LA POSSIBILITA' DI ACQUISTARLO -->
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-
+    <title>Dettagli Prodotto</title>
 </head>
 <body>
 
@@ -29,7 +30,7 @@
     if (product != null) { // Se il prodotto è stato trovato nel database
     %>
 <div class="bodyContainerCart">
-	<div class="containerProdotto">
+    <div class="containerProdotto">
     
         <!-- Mostra l'immagine del prodotto -->
         <%
@@ -38,9 +39,9 @@
             String base64image = java.util.Base64.getEncoder().encodeToString(immagine);
         %>
         <div class="leftColumn">
-        	<div class="imgCornice">
-        	<img src="data:image/jpeg;base64,<%= base64image %>" alt="<%= product.getNome() %>">
-        	</div>
+            <div class="imgCornice">
+            <img src="data:image/jpeg;base64,<%= base64image %>" alt="<%= product.getNome() %>">
+            </div>
         </div>
         <% 
         } 
@@ -56,21 +57,20 @@
         <div class="rightColumn">
         <p>Prezzo: € <%= String.format("%.2f", product.getPrezzo()) %></p>
         <% if(product.getQuantita() < 1 ) {%>
-        	<p class="outOfStock">Prodotto esaurito!</p> 
-        	<%
-        	}
-        	else { %>
-        	 <p>Quantità disponibile: </p> 
-        	<p><%= product.getQuantita() %></p>
-        	
+            <p class="outOfStock">Prodotto esaurito!</p> 
+            <%
+            }
+            else { %>
+             <p>Quantità disponibile: </p> 
+            <p><%= product.getQuantita() %></p>
+            
         
         
         
          <!-- Pulsante per aggiungere al carrello -->
-        <form action="ProductControl?action=addProduct&idprodotto=<%= product.getId() %>" method="post">
+         <form id="addToCartForm" method="post">
             <input type="hidden" name="productId" value="<%= product.getId() %>">
-            <input type="submit" value="Aggiungi al carrello" id="addButton">
-            
+            <button type="button" onclick="addToCart()">Aggiungi al carrello</button>
         </form>
         <!--ESPERIMENTO -->
         <form action="OrdineControl" method="post">
@@ -91,5 +91,34 @@
     </div>
 </body>
 <script src="script.js"></script>
+
+<script>
+    function addToCart() {
+        const form = document.getElementById('addToCartForm');
+        const formData = new FormData(form);
+    
+        fetch('ProductControl?action=addProduct', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())  // Assicurati che il server restituisca una risposta JSON
+        .then(data => {
+            const feedbackElement = document.getElementById('cartFeedback');
+            if (data.success) {
+                feedbackElement.innerText = 'Prodotto aggiunto al carrello!';
+                feedbackElement.style.color = 'green';
+            } else {
+                feedbackElement.innerText = 'Errore nell\'aggiunta del prodotto al carrello.';
+                feedbackElement.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const feedbackElement = document.getElementById('cartFeedback');
+            feedbackElement.innerText = 'Errore di comunicazione con il server.';
+            feedbackElement.style.color = 'red';
+        });
+    }
+    </script>
 <%@ include file="includes/footer.jsp" %>
 </html>

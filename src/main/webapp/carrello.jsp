@@ -97,15 +97,33 @@
     	UserBean user = (UserBean) session.getAttribute("user");
         
         if (cart != null && !cart.getProducts().isEmpty()) {
+            Map<Integer, ProductBean> productMap = new HashMap<>();
+            Map<Integer, Integer> quantityMap = new HashMap<>();
+            
+            // Aggrega i prodotti in base al loro ID
+            for (ProductBean product : cart.getProducts()) {
+                int productId = product.getId();
+                if (productMap.containsKey(productId)) {
+                    quantityMap.put(productId, quantityMap.get(productId) + 1);
+                } else {
+                    productMap.put(productId, product);
+                    quantityMap.put(productId, 1);
+                }
+            }
     %>
         <table>
             <tr>
                 <th>Immagine</th>
                 <th>Nome</th>
                 <th>Prezzo</th>
+                <th>Quantità</th>
                 <th>Rimuovi</th>
             </tr>
-            <% for (ProductBean product : cart.getProducts()) { %>
+            <% 
+                for (Map.Entry<Integer, ProductBean> entry : productMap.entrySet()) { 
+                    ProductBean product = entry.getValue();
+                    int quantity = quantityMap.get(product.getId());
+            %>
                 <tr>
                     <td class="img-column">
                         <% 
@@ -121,6 +139,7 @@
                     </td>
                     <td><%= product.getNome() %></td>
                     <td><%= String.format("%.2f", product.getPrezzo()) %>€</td>
+                    <td><%= quantity %></td>
                     <td>
                         <form action="ProductControl" method="post">
                             <input type="hidden" name="action" value="deleteCart">
