@@ -172,5 +172,5 @@
 
     <a href="utente.jsp" class="user-button">Modifica Indirizzo o Metodo di Pagamento</a> 
 </div>
-
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>

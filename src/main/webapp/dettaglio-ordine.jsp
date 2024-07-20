@@ -12,7 +12,10 @@
         out.println("<p style='color: red;'>Non ci sono prodotti disponibili per questo ordine.</p>");
     } else {
 %>
-    <table border="1">
+
+<div class="containerProdotti">
+<div class="table-container" id="containerTabella">
+    <table border="1" class="tabellaProdotto">
         <tr>
             <th>ID Prodotto</th>
             <th>Nome</th>
@@ -25,7 +28,7 @@
                 <td><%= product.getId() %></td>
                 <td><%= product.getNome() %></td>
                 <td><%= product.getDescrizione() %></td>
-                <td><%= product.getPrezzo() %></td>
+                <td><%= String.format("%.2f", product.getPrezzo()) %>€</td>
                 <td>
                     <%
                         byte[] immagine = product.getImmagine();
@@ -40,6 +43,7 @@
             </tr>
         <% } %>
     </table>
+    </div>
 <% } %>
 
 <!-- per capire se tornare alla pagina ordini degli admin o alla pagina ordine dei customer-->
@@ -48,12 +52,15 @@ String tipo = (String) session.getAttribute("tipo");
 %>
 <% if ("Admin".equals(tipo)) { %>
     <a href="ordini-admin.jsp" style="text-decoration: none; color: black;">
-        <button type="button">Vai ai tuoi Ordini</button>
+        <button type="button" id="bottoneCardProduct">Vai ai tuoi Ordini</button>
     </a>
 <% } else if ("Customer".equals(tipo)) { %>
     <a href="ordini-customer.jsp" style="text-decoration: none; color: black;">
-        <button type="button">Torna ai tuoi Ordini</button>
+        <button type="button" id="bottoneCardProduct">Torna ai tuoi Ordini</button>
     </a>
 <% } %>
 
+</div>
+
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>

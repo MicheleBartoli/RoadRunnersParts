@@ -6,17 +6,7 @@
 <%@ include file="includes/header.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
-    .spedito {
-    color: green;
-    font-weight: bold;
-}
 
-.non-spedito {
-    color: red;
-    font-weight: bold;
-}
-</style>
 
 <!-- PAGINA CHE MOSTRA TUTTI GLI ORDINI LATO AMMINISTRATORE CHE PERMETTE LA RICERCA DI ORDINI PER UTENTE, DALLA DATA ALLA DATA E MOSTRA TUTTI GLI ORDINI-->
 <%

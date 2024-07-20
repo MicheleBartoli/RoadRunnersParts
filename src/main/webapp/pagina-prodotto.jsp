@@ -48,15 +48,24 @@
         <div class="centerColumn">
         <h3 style="font-weight: bolder;"><%= product.getNome() %></h3>
         <p>Marca: <%= product.getMarca() %></p>
-        <p>Modello auto: <%= product.getModelloAuto() %></p>
+        <p>Compatibile con: <%= product.getModelloAuto() %></p>
         <p><%= product.getDescrizione() %></p>
         
         
      </div>
         <div class="rightColumn">
-        1<p>Prezzo: € <%= String.format("%.2f", product.getPrezzo()) %></p>
-        <p>Quantità disponibile: </p> 
-        <p><%= product.getQuantita() %></p>
+        <p>Prezzo: € <%= String.format("%.2f", product.getPrezzo()) %></p>
+        <% if(product.getQuantita() < 1 ) {%>
+        	<p class="outOfStock">Prodotto esaurito!</p> 
+        	<%
+        	}
+        	else { %>
+        	 <p>Quantità disponibile: </p> 
+        	<p><%= product.getQuantita() %></p>
+        	
+        
+        
+        
          <!-- Pulsante per aggiungere al carrello -->
         <form action="ProductControl?action=addProduct&idprodotto=<%= product.getId() %>" method="post">
             <input type="hidden" name="productId" value="<%= product.getId() %>">
@@ -67,6 +76,7 @@
         <form action="OrdineControl" method="post">
                         <input type='hidden' name='action' value='saveorder'>
                         <button type='submit' id="addButton">Compra subito!</button>
+           <% }%>
         </form>
        </div>
    </div>

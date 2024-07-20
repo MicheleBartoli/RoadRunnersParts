@@ -31,7 +31,7 @@ function showSlides() {
         firstSlide.classList.add("next");
     }
 
-    setTimeout(showSlides, 3000); // Cambia immagine ogni 3 secondi
+    setTimeout(showSlides, 6000); // Cambia immagine ogni 3 secondi
 }
 
 showSlides();
@@ -253,5 +253,7 @@ function hideInsertProduct(){
 		document.getElementById('containerTabella').style.display = 'block';
 		document.getElementById('sortForm').style.display = 'block';
 }
-
-
+ /// Script per gestire il click sull'immagine per modificarla (quando si intende modificare il prodotto)
+function handleImageClick() {
+        document.getElementById('fileinput').click();
+    }

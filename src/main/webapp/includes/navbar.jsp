@@ -12,9 +12,9 @@
             	<i class="fa fa-bars"></i> 
         	</a>
         		<a href="home.jsp">Home</a>
-        		<a href="catalogo.jsp">Catalogo</a>
+        		<a href="catalogo-customer.jsp">Catalogo</a>
         		<a href="contatti.jsp">Contatti</a>
-        		<a href="login.jsp">
+        		<a href="login.jsp" style="text-decoration:none; ">
         			<i class="fa fa-user"></i>
         		</a>
         		<a href="carrello.jsp" class="cart">

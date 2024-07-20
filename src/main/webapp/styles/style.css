@@ -31,6 +31,16 @@ html, body{
     align-items: center;
   	min-height: 120%;
   }
+ .catalog-container-home{
+ 			display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap:20px;
+            height: 700px;
+            margin: 40px 0px;
+
+ }
 .redirect{
 	text-align: center;
 	margin-top: 350px;
@@ -135,7 +145,7 @@ html, body{
     flex-wrap: wrap;
     background-color: #2074B0;
     justify-content: space-around;
-    margin-top: -50px;
+    margin-top: 0px;
     padding: 20px 20px;
     opacity: 80%;
     clear:both;
@@ -211,18 +221,7 @@ footer {
 }
 
 
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        margin-top: -100px;
-    }
-
-    .footer-section {
-        max-width: 200px;
-    }
-}
-																				/*LOGIN STUFF*/
+																			/*LOGIN STUFF*/
 
 .login-container {
     background-color: #fff;
@@ -324,10 +323,9 @@ footer {
 
 .slideshow-container {
     position: relative;
-    max-width: 100%;
-    margin: auto;
+    width: 100%;
     overflow: hidden; /* Assicura che le immagini non escano dal div */
-    height: 1500px; /* Imposta un'altezza fissa per il contenitore */
+    height: 1100px; /* Imposta un'altezza fissa per il contenitore */
     margin-top: 40px;
     padding-bottom: 50px; /* Aggiungi un padding inferiore sufficientemente grande */
    
@@ -367,88 +365,6 @@ footer {
     
 }
 
-													/* Media query per schermi di dimensioni più piccole */
-													
-@media (max-width: 1432px){
-	.slideshow-container {
-	height: 1000px;
-	}
-	.searchbar{
-	width: 20%;
-	}
-	
-}
-@media (max-width: 1073px) {
-	.slideshow-container {
-	height: 600px;
-	}
-    .navbar {
-        justify-content: center; /* Centra tutti gli elementi della navbar */
-    }
-    
-    .logo-container {
-    	display: block;
-        height: 85px;
-        width: 100%;
-        max-width: none;
-        position: relative;
-    }
-    
-    .logo {
-    	position: absolute;
-        max-height: 130px; /* Limita la dimensione massima del logo */
-    }
-    .searchbar {
-    	margin-top: 100px;
-        display: block; /* Nascondi la search bar */
-        width: 95%;
-    }
-    
-    .topnav a:not(:first-child) {
-  		display: none;
-  		float: right;
-  		color: #2074B0;
-  		text-align: center;
-  		padding: 14px 16px;
-  		text-decoration: none;
-  		font-size: 17px; 
-  		float: none;
- 	}
- 
-	.topnav a:hover {
-  		text-decoration: underline;
-    	color: #fff;
-    	background-color: #2074B0;
-	}
-  .topnav a.hamburger {
-    	float: right;
-    	display: block;
-    	position: absolute;
-    	right: 10px;
-    	top: 15px;
-  }
-  .topnav.responsive {
-  		position: relative;
-  }
-  .topnav.responsive .hamburger {
-    	position: absolute;
-    	right: 10px;
-    	top: 15px;
-  }
-  	.topnav.responsive a {
-  		text-align: center;
-    	float: none;
-    	display: block;
-  }
-  .slideshow-container {
-  margin-top: 20px;
-  }
-  .spacing{
-  display: block;
-  height: 60px;
-  width: 100%;
-  }
-}
 
 
 .areaPersonale{
@@ -564,15 +480,26 @@ footer {
 	font-weight: bold;
 }
 #bottoneCatalogo{
-	border-radius: 8px;
-    font-weight: bold;
-    margin: 20px;
-    border-block-color: #2074B0;
+	width: 60%;
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+    margin-top: 15px;
 }
 
 #bottoneCatalogo:hover{
-	background-color: white;
+	background-color: #2074B0;
+    color: #fff;
 	}
+#hideButton{
+	margin-top:20px;
+}
 .table-container {
     max-height: 600px;
     overflow-y: auto;
@@ -581,7 +508,7 @@ footer {
     display: flex;
     flex-direction: row;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 150px;
 }
 .tabellaProdotto{
 	width: 100%;
@@ -671,7 +598,261 @@ footer {
     color: #fff;
 }
 
-@media (max-width: 1532px) {
+
+
+
+.contactImmage{
+	width: 100%;
+	margin-top: 10px;
+}
+#imgCopertina{
+    margin: 100px 10% 0px 10%;
+    max-height: 800px;
+    width: 80%;
+
+}
+
+.containerCardContact{
+	color: #2074B0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 80%;
+    height: 900px;
+    margin: 50px auto;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 20px;
+}
+
+
+.cCardContainer{
+	display: flex;
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.loreCard{
+	width:70%;
+	height: 500px;
+	border-radius: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 1px solid #ccc;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+}
+.loreCard h1{
+	font-weight: bolder;
+	font-style: italic;
+}
+.loreCard p{
+	color: #337ab7;
+    margin: 30px;
+    font-style: italic;
+}
+.contactCard{
+	width: 30%;
+	height: 80px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 1px solid #ccc;
+	border-radius: 15px;
+}
+.socialCard{
+	display: flex;
+	justify-content: space-evenly;
+	width: 70%;
+	height: 80px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 1px solid #ccc;
+    border-radius: 15px;
+}
+.contactElm{
+    display: flex;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: center;
+}
+
+.contactElm img{
+    height: 45px;
+    margin: 15px 10px;
+}
+.contactElm p{
+    color: #337ab7;
+    font-weight: bolder;
+    margin: auto;
+}
+.socialElm{
+	margin: auto;
+}
+.socialElm a img{
+	max-width: 60px;
+	max-height: 60px;
+}
+.socialElm a:hover{
+	color: #D4ECFD;
+}
+
+
+
+.cardProduct {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 25%;
+    max-width: 400px;
+    height: 600px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+        
+.cardProduct img {
+            max-width: 100%;
+            height: auto;
+        }
+.cardProduct .product-name {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+.cardProduct .product-price {
+            font-size: 18px;
+            color: green;
+            margin: 10px 0;
+            font-weight: bolder;
+}
+        
+        
+.cardProduct .details-button:hover {
+     background-color: #2074B0;
+     color: #fff;
+     transition: background-color 0.3s ease;
+}
+
+#bottoneCardProduct{
+	width: 100%;
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+#bottoneCardProduct:hover{
+	background-color: #2074B0;
+    color: #fff;
+	}
+.outOfStock{
+	color: red; 
+	font-weight: bolder;
+	font-size: 18px;
+}
+
+.catalog-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            justify-content: space-evenly;
+}
+
+.search-container {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }	
+.cardModificaProdotto{
+	
+	color: #2074B0;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    height: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    flex-direction: column;
+    text-align: center;
+}
+.image-container {
+			margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+    .image-container:hover .overlay {
+            opacity: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .image-container.hovered .overlay {
+        opacity: 1;
+    }
+	
+	#bottoneModificaProd {
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    border: 1px solid #2074b0;
+    border-radius: 20px;
+    margin-top: 40px;
+}
+.spedito {
+    color: green;
+    font-weight: bold;
+}
+
+.non-spedito {
+    color: red;
+    font-weight: bold;
+}
+	
+	
+													/* Media query per schermi di dimensioni più piccole */
+													
+@media (max-width: 1432px){
+	.slideshow-container {
+	height: 600px;
+	}
+	.searchbar{
+	width: 20%;
+	}
+	
 .containerProdotto{
 	display: flex;
     width: 100%;
@@ -708,7 +889,7 @@ footer {
 
 .leftColumn img {
     max-width: 100%;
-    height: auto;
+    height: 400px;
     margin-left: auto;
   	margin-right: auto;
 }
@@ -739,12 +920,175 @@ footer {
 .imgCornice{
 	display:flex;
 }
+
+
+}
+
+
+@media (max-width: 1170px) {
+	.slideshow-container {
+	height: 500px;
+	margin-top: 80px;
+	}
+	.loreCard{
+		width: 90%;
+		height: 650px;
+		
+}
+	.cCardContainer {
+    	flex-direction: column;
+    	align-items: center;
+    	margin-top: 25px;
+    	gap: 20px;
+    	height: auto;
+	}
+	.contactCard{
+		width: 270px;
+		margin-bottom: 20px;
+}
+	.containerCardContact {
+   		height: 1400px;
+}
+	.socialCard {
+    	margin-top: 5px;
+    	margin-bottom: 80px;
+}
+	.socialElm a img{
+		max-width: 40px;
+		max-height: 40px;
+}
+
+.catalog-container-home{
+ 			display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap:20px;
+            height: 600px;
+
+ }
+
+
 }
 
 
 
 
+@media (max-width: 1073px) {
+	.slideshow-container {
+	height: 600px;
+	margin-top: 70px;
+	}
+    .navbar {
+        justify-content: center; /* Centra tutti gli elementi della navbar */
+    }
+    
+    .logo-container {
+    	display: block;
+        height: 85px;
+        width: 100%;
+        max-width: none;
+        position: relative;
+    }
+    
+    .logo {
+    	position: absolute;
+        max-height: 130px; /* Limita la dimensione massima del logo */
+    }
+    .searchbar {
+    	margin-top: 100px;
+        display: block; /* Nascondi la search bar */
+        width: 95%;
+    }
+    
+    .topnav a:not(:first-child) {
+  		display: none;
+  		float: right;
+  		color: #2074B0;
+  		text-align: center;
+  		padding: 14px 16px;
+  		text-decoration: none;
+  		font-size: 17px; 
+  		float: none;
+ 	}
+ 
+	.topnav a:hover {
+  		text-decoration: underline;
+    	color: #fff;
+    	background-color: #2074B0;
+	}
+  .topnav a.hamburger {
+    	float: right;
+    	display: block;
+    	position: absolute;
+    	right: 10px;
+    	top: 15px;
+  }
+  .topnav.responsive {
+  		position: relative;
+  }
+  .topnav.responsive .hamburger {
+    	position: absolute;
+    	right: 10px;
+    	top: 15px;
+  }
+  	.topnav.responsive a {
+  		text-align: center;
+    	float: none;
+    	display: block;
+  }
+  .slideshow-container {
+  margin-top: 20px;
+  }
+  .spacing{
+  display: block;
+  height: 60px;
+  width: 100%;
+  }
+  
+   .catalog-container-home{
+ 		display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        padding: 20px;
+        gap: 20px;
+        height: 1400px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  
+  .cardProduct {
+    width: 270px;
+    height: 600px;
+}
+}
+
+
+@media (max-width: 768px) {
+	.slideshow-container {
+	height: 300px;
+	margin-top: 120px;
+	}
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .footer-section {
+        max-width: 200px;
+    }
+    .cardModificaProdotto {
+    width: 340px;
+}
+}
+	
 @media (max-width: 500px) {
+	.slideshow-container {
+	height: 200px;
+	margin-top: 100px;
+	}
 .containerProdotto{
 	display: flex;
     width: 100%;
@@ -815,16 +1159,6 @@ footer {
 }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	

@@ -14,7 +14,7 @@
         		<h1> Errore, pagina non trovata</h1>
 				<a href = "home.jsp"> Torna alla home</a>
 				</div>
-	
+	<script src="script.js"></script>
 	<%@ include file="includes/footer.jsp" %>
 	
 </div>	

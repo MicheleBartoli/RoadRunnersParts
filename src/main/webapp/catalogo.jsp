@@ -41,7 +41,7 @@
 
 
 
-<form action="ProductControl?action=insert" method="post" class="form-container3" enctype="multipart/form-data">
+<form action="ProductControl?action=insert" method="post"  enctype="multipart/form-data">
     
     <label for="nome">Nome:</label><br> 
     <input name="nome" type="text" maxlength="50" required placeholder="Inserisci nome"><br>
@@ -62,9 +62,10 @@
     <input name="quantita" type="number" min="1" value="1" required style="text-align:center;"><br> 
     
     <label for="immagine">Immagine:</label><br>
-    <input name="immagine" type="file" accept="image/jpeg, image/png" required style="margin:auto;"><br>
+    <input name="immagine" type="file" accept="image/jpeg, image/png" required style="margin:auto;"><br> 
     
-    <input type="submit" value="Add" id="bottoneCatalogo"><input type="reset" value="Reset" id="bottoneCatalogo">
+    <input type="submit" value="Add" id="bottoneCatalogo">
+    <input type="reset" value="Reset" id="bottoneCatalogo">
 </form>
 <div style="margin-bottom:20px">
     <button onclick="hideInsertProduct()" class="button" id="hideButton">Nascondi inserimento</button>
@@ -117,7 +118,8 @@
         <td><%= bean.getId() %></td>
         <td><%= bean.getNome() %></td>
         <td><%= bean.getDescrizione() %></td>
-        <td><%= bean.getPrezzo() %></td>
+        <td><%= String.format("%.2f", bean.getPrezzo())%>€</td>
+       
         <td><%= bean.getQuantita() %></td>
         <td><%= bean.getMarca() %></td>
         <td><%= bean.getModelloAuto() %></td>
@@ -125,7 +127,6 @@
         <!-- colonna con i tasti per la gestione delle azioni da fare per ogni prodotto -->
         <td>
             <a href="ProductControl?action=readdetails&idprodotto=<%= bean.getId() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-pen" aria-hidden="true"></i></a>
-            <a href="ProductControl?action=addProduct&idprodotto=<%= bean.getId() %>" style="margin-left: 0.625rem;"><i class="fa-solid fa-cart-plus" aria-hidden="true"></i></a>
             <a href="ProductControl?action=delete&idprodotto=<%= bean.getId() %>"style="margin-left: 0.625rem;"><i class="fa-solid fa-trash" aria-hidden="true"></i></a>
         </td>
     </tr>

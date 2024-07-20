@@ -7,17 +7,6 @@
 
 <!-- PAGINA CHE MOSTRA, LATO CUSTOMER LOGGATO, TUTTI GLI ORDINI CHE HA EFFETTUATO -->
 
-<style>
-    .spedito {
-    color: green;
-    font-weight: bold;
-}
-
-.non-spedito {
-    color: red;
-    font-weight: bold;
-}
-</style>
 
 <%
     String userid = (String) session.getAttribute("userid");
@@ -37,13 +26,13 @@
                     return;
                 }
 %>
-
-<div style="display: flex; justify-content: center; margin-right: 50%;">
-    <h2 style="color: black; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">I tuoi Ordini : </h2>
+<div class="bodyContainer">
+<div style="display: flex; justify-content: center; margin-top:400px;">
+    <h2 style="color: #2074b0; font-weight: bold; margin-bottom: 0.3125rem; margin-top: 0.3125rem;">I tuoi Ordini : </h2>
 </div>
-
-<table border="1" style="background-color: #90EE90;">
-    <tr>
+<div class="table-container ">
+<table border="1" class="tabellaProdotto">
+    <tr style="color:black; font-weight: bolder;">
         <th>Order ID</th>
         <th>User ID</th>
         <th>Indirizzo</th>
@@ -56,7 +45,7 @@
         <th>Azioni</th>
     </tr>
     <% for (OrderBean order : orders) { %>
-        <tr>
+        <tr style="color: #2074b0;">
             <td><%= order.getIdordine() %></td>
             <td><%= order.getUserid() %></td>
             <td><%= order.getIndirizzo() %></td>
@@ -75,9 +64,11 @@
         </tr>
     <% } %>
 </table>
+</div>
 <%
         }
     }
 %>
-
+</div>
+<script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>

@@ -19,19 +19,19 @@
             <div class="footer-section links">
                 <h2>Quick Links</h2>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="home.jsp">Home</a></li>
+                    <li><a href="catalogo-customer.jsp">Catalogo</a></li>
+                    <li><a href="utente.jsp">Area personale</a></li>
+                    <li><a href="contatti.jsp">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section social">
                 <h2>Follow Us</h2>
                 <div class="social-links">
-                    <a href="#"><img src="images/social/facebook.png" alt="Facebook"></a>
-                    <a href="#"><img src="images/social/x.png" alt="Twitter"></a>
-                    <a href="#"><img src="images/social/ig.png" alt="Instagram"></a>
-                    <a href="#"><img src="images/social/linkedin.png" alt="LinkedIn"></a>
+                    <a href="https://www.facebook.com/"><img src="images/social/facebook.png" alt="Facebook"></a>
+                    <a href="https://x.com/?lang=it"><img src="images/social/x.png" alt="Twitter"></a>
+                    <a href="https://www.instagram.com/"><img src="images/social/ig.png" alt="Instagram"></a>
+                    <a href="https://it.linkedin.com/"><img src="images/social/linkedin.png" alt="LinkedIn"></a>
                 </div>
             </div>
         </div>

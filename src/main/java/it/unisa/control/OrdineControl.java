@@ -1,5 +1,5 @@
 package it.unisa.control;
-
+import java.util.ArrayList;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -231,30 +231,28 @@ public class OrdineControl extends HttpServlet {
     }
 
     //metodo che genera la fattura di un ordine
-    private void generaFattura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   private void generaFattura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String orderIdParam = request.getParameter("idordine");
 
 	    if (orderIdParam != null) {
 	        try {
 	            int orderId = Integer.parseInt(orderIdParam);
-	            OrderBean order = model.retrieveOrderById(orderId); 
+	            OrderBean order = model.retrieveOrderById(orderId);
 
 	            if (order != null) {
 	                Document document = new Document();
 	                response.setContentType("application/pdf");
-                    String fileName = "fattura_" + orderId + ".pdf";
-                    response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\""); //serve per scrivere come nome del file scaricato il numero di fattura
+	                String fileName = "fattura_" + orderId + ".pdf";
+	                response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\"");
 	                PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
 	                document.open();
 
-	                //set di font usati 
 	                Font font = FontFactory.getFont("Arial", 24, Font.BOLD, BaseColor.BLACK);
-	                Font font_bold = FontFactory.getFont("Arial", 16, Font.BOLD, BaseColor.BLACK); //creazione di un font bold
+	                Font font_bold = FontFactory.getFont("Arial", 16, Font.BOLD, BaseColor.BLACK);
 
 	                document.add(new Paragraph("FATTURA", font));
 
-	                //gestione logo
-                    String logopath = "/images/logo2.png";
+	                String logopath = "/images/logo2.png";
 	                Image logo = Image.getInstance(getServletContext().getRealPath(logopath));
 	                logo.scaleToFit(100, 100);
 	                float yPos = PageSize.A4.getHeight() - logo.getScaledHeight() - (PageSize.A4.getHeight() * 0.05f);
@@ -265,12 +263,12 @@ public class OrdineControl extends HttpServlet {
 	                document.add(new Paragraph("RoadRunnerParts", font));
 	                document.add(new Chunk("\n"));
 
-                    document.add(new Phrase("CLIENTE:", font_bold));
+	                document.add(new Phrase("CLIENTE:", font_bold));
 	                document.add(new Paragraph(order.getUserid(), font));
 	                document.add(new Chunk("\n"));
 
 	                document.add(new Phrase("INDIRIZZO FATTURA:", font_bold));
-	                document.add(new Paragraph(order.getIndirizzo() + ", " + order.getCitta() + ", " + order.getProvincia() + ", " + order.getCap() +", " + order.getTelefono(), font));
+	                document.add(new Paragraph(order.getIndirizzo() + ", " + order.getCitta() + ", " + order.getProvincia() + ", " + order.getCap() + ", " + order.getTelefono(), font));
 	                document.add(new Chunk("\n"));
 
 	                PdfPTable tableHeader = new PdfPTable(2);
@@ -297,141 +295,182 @@ public class OrdineControl extends HttpServlet {
 	                cell.setBorder(Rectangle.NO_BORDER);
 	                tableHeader.addCell(cell);
 
-	                //spazio tra intestazione e tabella dei prodotti
 	                tableHeader.setSpacingAfter(20);
 	                document.add(tableHeader);
 
-	                PdfPTable tableProducts = new PdfPTable(4); // 3 colonne
+	                PdfPTable tableProducts = new PdfPTable(6); // 6 colonne: ID, Nome, Descrizione, Quantità, Prezzo, Prezzo tot
 	                tableProducts.setWidthPercentage(100);
 	                tableProducts.setSpacingBefore(20);
 
 	                cell = new PdfPCell(new Phrase("ID", font_bold));
 	                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                    cell.setPaddingTop(10f);
-                    cell.setPaddingBottom(10f);
+	                cell.setPaddingTop(10f);
+	                cell.setPaddingBottom(10f);
 	                tableProducts.addCell(cell);
 
-                    cell = new PdfPCell(new Phrase("NOME", font_bold));
+	                cell = new PdfPCell(new Phrase("NOME", font_bold));
 	                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                    cell.setPaddingTop(10f);
-                    cell.setPaddingBottom(10f);
+	                cell.setPaddingTop(10f);
+	                cell.setPaddingBottom(10f);
 	                tableProducts.addCell(cell);
 
 	                cell = new PdfPCell(new Phrase("DESCRIZIONE", font_bold));
 	                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                    cell.setPaddingTop(10f);
-                    cell.setPaddingBottom(10f);
+	                cell.setPaddingTop(10f);
+	                cell.setPaddingBottom(10f);
 	                tableProducts.addCell(cell);
 
-	                cell = new PdfPCell(new Phrase("PREZZO", font_bold));
+	                cell = new PdfPCell(new Phrase("QUANTITÀ", font_bold));
 	                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                    cell.setPaddingTop(10f);
-                    cell.setPaddingBottom(10f);
+	                cell.setPaddingTop(10f);
+	                cell.setPaddingBottom(10f);
 	                tableProducts.addCell(cell);
 
-	                //righe per i vari prodotti dell'ordine
+	                cell = new PdfPCell(new Phrase("PREZZO UNITARIO", font_bold));
+	                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	                cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
+	                cell.setPaddingTop(10f);
+	                cell.setPaddingBottom(10f);
+	                tableProducts.addCell(cell);
+	                
+	                cell = new PdfPCell(new Phrase("PREZZO TOTALE", font_bold));
+	                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	                cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
+	                cell.setPaddingTop(10f);
+	                cell.setPaddingBottom(10f);
+	                tableProducts.addCell(cell);
+
+	                // Raggruppa i prodotti per ID e calcola le quantità
+	                List<ProductBean> groupedProducts = new ArrayList<>();
 	                for (ProductBean product : order.getProdotti()) {
-	                    cell = new PdfPCell(new Phrase(String.valueOf(product.getId()))); //id
+	                    boolean found = false;
+	                    for (ProductBean groupedProduct : groupedProducts) {
+	                        if (groupedProduct.getId() == product.getId()) {
+	                            groupedProduct.setQuantita(groupedProduct.getQuantita() + 1); // Incrementa la quantità
+	                            found = true;
+	                            break;
+	                        }
+	                    }
+	                    if (!found) {
+	                        product.setQuantita(1); // Imposta la quantità iniziale a 1
+	                        groupedProducts.add(product);
+	                    }
+	                }
+
+	                // Aggiungi i prodotti alla tabella
+	                for (ProductBean product : groupedProducts) {
+	                    cell = new PdfPCell(new Phrase(String.valueOf(product.getId()))); // id
 	                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                    cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                        cell.setPaddingTop(10f);
-                        cell.setPaddingBottom(10f);
+	                    cell.setPaddingTop(10f);
+	                    cell.setPaddingBottom(10f);
 	                    tableProducts.addCell(cell);
 
-                        cell = new PdfPCell(new Phrase(product.getNome())); //nome
+	                    cell = new PdfPCell(new Phrase(product.getNome())); // nome
 	                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                    cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                        cell.setPaddingTop(10f);
-                        cell.setPaddingBottom(10f);
+	                    cell.setPaddingTop(10f);
+	                    cell.setPaddingBottom(10f);
 	                    tableProducts.addCell(cell);
 
-	                    cell = new PdfPCell(new Phrase(product.getDescrizione())); //descrizione
+	                    cell = new PdfPCell(new Phrase(product.getDescrizione())); // descrizione
 	                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                    cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                        cell.setPaddingTop(10f);
-                        cell.setPaddingBottom(10f);
+	                    cell.setPaddingTop(10f);
+	                    cell.setPaddingBottom(10f);
 	                    tableProducts.addCell(cell);
 
-	                    cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", product.getPrezzo()))); //prezzo
+	                    cell = new PdfPCell(new Phrase(String.valueOf(product.getQuantita()))); // quantità
 	                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                    cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                        cell.setPaddingTop(10f);
-                        cell.setPaddingBottom(10f);
+	                    cell.setPaddingTop(10f);
+	                    cell.setPaddingBottom(10f);
+	                    tableProducts.addCell(cell);
+	                    
+	                    cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", product.getPrezzo()))); // prezzo unitario
+	                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	                    cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
+	                    cell.setPaddingTop(10f);
+	                    cell.setPaddingBottom(10f);
+	                    tableProducts.addCell(cell);
+
+	                    cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", product.getPrezzo() * product.getQuantita()))); // prezzo totale per il prodotto
+	                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	                    cell.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
+	                    cell.setPaddingTop(10f);
+	                    cell.setPaddingBottom(10f);
 	                    tableProducts.addCell(cell);
 	                }
 
-	                //spazio tra tabella prodotti e tabella con i costi
 	                tableProducts.setSpacingAfter(20);
 	                document.add(tableProducts);
 
-                    //tabella dei costi
-	                PdfPTable tableTotals = new PdfPTable(3); 
+	                PdfPTable tableTotals = new PdfPTable(3);
 	                tableTotals.setWidthPercentage(50);
-                    tableTotals.setSpacingBefore(20);
-                    tableTotals.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                    document.add(new Paragraph(" "));
-	                
+	                tableTotals.setSpacingBefore(20);
+	                tableTotals.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	                document.add(new Paragraph(" "));
+
 	                float totaleprezzo = order.getPrezzoTotale();
 	                float iva = totaleprezzo * 22 / 100;
 	                float subtotale = totaleprezzo - iva;
 
-	                cell = new PdfPCell(new Phrase("")); 
+	                cell = new PdfPCell(new Phrase(""));
 	                cell.setBorder(Rectangle.NO_BORDER);
 	                tableTotals.addCell(cell);
 
-	                cell = new PdfPCell(new Phrase("Subtotale  :")); 
+	                cell = new PdfPCell(new Phrase("Subtotale  :"));
 	                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                    cell.setPaddingTop(7f);
+	                cell.setPaddingTop(7f);
 	                cell.setBorder(Rectangle.NO_BORDER);
 	                tableTotals.addCell(cell);
 
-	                cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", subtotale))); //subtotale
+	                cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", subtotale)));
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingTop(7f);
+	                cell.setPaddingTop(7f);
 	                tableTotals.addCell(cell);
 
-	                cell = new PdfPCell(new Phrase("")); 
+	                cell = new PdfPCell(new Phrase(""));
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingTop(7f);
-                    cell.setPaddingBottom(7f);
+	                cell.setPaddingTop(7f);
+	                cell.setPaddingBottom(7f);
 	                tableTotals.addCell(cell);
 
-	                cell = new PdfPCell(new Phrase("IVA 22.0%:")); //iva
+	                cell = new PdfPCell(new Phrase("IVA 22.0%:"));
 	                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingBottom(7f);
+	                cell.setPaddingBottom(7f);
 	                tableTotals.addCell(cell);
 
 	                cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", iva)));
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingBottom(7f);
+	                cell.setPaddingBottom(7f);
 	                tableTotals.addCell(cell);
 
 	                Font font2 = FontFactory.getFont("Arial", 16, Font.BOLD, BaseColor.BLACK);
-	                cell = new PdfPCell(new Phrase("")); 
+	                cell = new PdfPCell(new Phrase(""));
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingTop(7f);
-                    cell.setPaddingBottom(7f);
+	                cell.setPaddingTop(7f);
+	                cell.setPaddingBottom(7f);
 	                tableTotals.addCell(cell);
 
-	                cell = new PdfPCell(new Phrase(" TOTALE", font2)); //totale ordine
+	                cell = new PdfPCell(new Phrase(" TOTALE", font2));
 	                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingTop(7f);
-                    cell.setPaddingBottom(7f);
+	                cell.setPaddingTop(7f);
+	                cell.setPaddingBottom(7f);
 	                tableTotals.addCell(cell);
 
 	                cell = new PdfPCell(new Phrase("€ " + String.format("%.2f", totaleprezzo), font2));
 	                cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setPaddingTop(7f);
-                    cell.setPaddingBottom(7f);
+	                cell.setPaddingTop(7f);
+	                cell.setPaddingBottom(7f);
 	                tableTotals.addCell(cell);
 
-	                // Aggiungi spazio dopo la tabella dei prezzi
 	                tableTotals.setSpacingAfter(20);
 	                document.add(tableTotals);
 
@@ -447,7 +486,9 @@ public class OrdineControl extends HttpServlet {
 	    } else {
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ordine mancante");
 	    }
-    }
+	}
+
+
 
     //metodo che aggiorna lo stato di un ordine
     public void updateStato(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

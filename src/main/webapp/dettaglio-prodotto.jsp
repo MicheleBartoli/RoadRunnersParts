@@ -11,132 +11,30 @@
 <%
     ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 %>
-<style>
-    /* Stili per schermi con larghezza minore di 600px */
-    @media (max-width: 990px) {
-        .desktop-header {
-            display: none !important;
-        }
-        
-        .table-container table {
-            width: 100%;  /* Aumenta la larghezza al 100% */
-            min-width: 25rem;
-        }
-
-        .table-container table,
-        .table-container thead,
-        .table-container tbody,
-        .table-container th,
-        .table-container td,
-        .table-container tr {
-            display: block;
-        }
-
-        .table-container tr {
-            border: 1px solid #ccc;
-        }
-
-        .table-container td {
-            border: none;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            padding-left: 50%;
-            text-align: right;
-        }
-
-        .table-container td:before {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 45%;
-            padding-right: 10px;
-            white-space: nowrap;
-            content: attr(data-column);
-            text-align: left;
-            font-weight: bold;
-        }
-
-        
-    }
-
-    /* Stili per schermi con larghezza maggiore o uguale a 991px */
-    @media (min-width: 991px) {
-        .desktop-header {
-            display: table-row !important;
-        }
-        
-        /* Aggiungi qui altri stili specifici per schermi più larghi se necessario */
-    }
-
-    /* Stili per l'effetto hover sull'immagine */
-    .image-container {
-            position: relative;
-            display: inline-block;
-        }
-
-    .image-container:hover .overlay {
-            opacity: 1;
-    }
-
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
-        height: 100px;
-        background-color: rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    .image-container.hovered .overlay {
-        opacity: 1;
-    }
-</style>
-
-<!-- Script per gestire il click sull'immagine per modificarla -->
-<script>
-    function handleImageClick() {
-        document.getElementById('fileinput').click();
-    }
-</script>
 
 
-    <h3 style="color: white;"><a href="catalogo.jsp" style="text-decoration: none; color: white;"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a></h3>
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <h2 style="color: white;">Dettagli</h2>
+<body>
+<div class="bodyContainer">
+    
+    
+   	<div style="height:100px; margin-top: 20px;">
+   	
+   	</div>
     <form action="ProductControl?action=change" method="post" enctype="multipart/form-data">
     <%
         if (prodotto != null) {
     %>
-    <div class="table-container">
-        <table border="1" style="background-color: rgb(41, 139, 230); width: 100%;">
-            <tr class="desktop-header">
-                <th>Immagine Prodotto</th>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrizione</th>
-                <th>Prezzo</th>
-                <th>Quantità</th>
-                <th>Marca</th>
-                <th>Modello</th>
-            </tr>
-            <tr>
-                <td data-column="Immagine">
-                    <div class="image-container">
+    <div class="cardModificaProdotto">
+    <div style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+    <p style="color:black;font-weight: bolder; margin-top: 30px; font-size:18px;">Stai modificando il prdotto codice:<br><%=prodotto.getId()%></p><br> 
+    	<div class="image-container">
                         <%
                             byte[] immagine = prodotto.getImmagine();
                             if (immagine != null && immagine.length > 0) {
                                 String base64image = java.util.Base64.getEncoder().encodeToString(immagine);
                         %>
                         <!-- visualizzazione immagine con modifica quando si clicca sopra-->
-                            <img src="data:image/jpeg;base64,<%= base64image %>" alt="<%= prodotto.getNome() %>" style="width: 100px; height: 100px; cursor: pointer;" onclick="handleImageClick()"">
+                            <img src="data:image/jpeg;base64,<%= base64image %>" alt="<%= prodotto.getNome() %>" style="width: 200px; height: 200px; cursor: pointer;" onclick="handleImageClick()"">
                             <div class="overlay" onclick=""handeImageClick()">Modifica foto</div>
                         <% 
                             } else {    
@@ -146,31 +44,41 @@
                         <%
                             }   
                         %>
-                        <input type="file" name="immagine" id="fileinput" style="position: absolute; top: 0; left: 0; width: 100px; height: 100px; opacity: 0; cursor: pointer;" accept="image/*">
-                    </div>
-
-                </td>
-                <td data-column="Idprodotto"><input type="text" name="idprodotto" value="<%=prodotto.getId()%>" readonly></td>
-                <td data-column="Nome"><input name="nome" type="text" maxlength="50" required placeholder="Inserisci nome" value="<%=prodotto.getNome()%>"></td>
-                <td data-column="Descrizione"><textarea name="descrizione" maxlength="100" rows="3" required><%=prodotto.getDescrizione()%></textarea></td>
-                <td data-column="Prezzo"><input name="prezzo" type="text" pattern="^\d+(\.\d{1,2})?$" title="Inserisci un numero valido. Massimo due cifre decimali." required value="<%=prodotto.getPrezzo()%>"></td>
-                <td data-column="Quantita"><input name="quantita" type="number" min="0" value="<%=prodotto.getQuantita()%>" required></td>
-                <td data-column="Marca"><input name="marca" type="text" maxlength="20" required placeholder="Inserisci marca" value="<%=prodotto.getMarca()%>"></td>
-                <td data-column="Modello"><input name="modello_auto" type="text" maxlength="20" required placeholder="Inserisci modello" value="<%=prodotto.getModelloAuto()%>"></td>
-                
-            </tr>
-        </table>
+                        <input type="file" name="immagine" id="fileinput" style="position: absolute; top: 0; left: 0; width: 200px; height: 200px; opacity: 0; cursor: pointer;" accept="image/*"><br> 
+    	</div>
+    	<div>
+    <div style="display:none;">
+    	<label for="idprodotto">Nome:</label><br> 
+    	<input type="text" name="idprodotto" value="<%=prodotto.getId()%>" readonly><br>
     </div>
-    <input type="submit" value="Modifica" style="width: 100%; height: 3.125rem;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    font-size: 2rem;
-    margin-top: 0.125rem;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #0436b3;"><br>
+    
+    <label for="nome">Nome:</label><br> 
+    <input name="nome" type="text" maxlength="50" required placeholder="Inserisci nome" value="<%=prodotto.getNome()%>"><br> 
+    
+    <label for="marca">Marca:</label><br> 
+    <input name="marca" type="text" maxlength="50" required placeholder="Inserisci marca" value="<%=prodotto.getMarca()%>"><br> 
+    
+    <label for="modello">Modello:</label><br> 
+    <input name="modello_auto" type="text" maxlength="50" required placeholder="Inserisci modello" value="<%=prodotto.getModelloAuto()%>"><br> 
+
+    <label for="descrizione">Descrizione:</label><br>
+    <textarea name="descrizione" maxlength="100" rows="3" required><%=prodotto.getDescrizione()%></textarea><br> 
+    
+    <label for="prezzo">Prezzo:</label><br>
+    <input name="prezzo" type="text" pattern="^\d+(\.\d{1,2})?$" title="Inserisci un numero valido. Massimo due cifre decimali." required value="<%=prodotto.getPrezzo()%>"><br> 
+
+    <label for="quantita">Quantita:</label><br> 
+    <input name="quantita" type="number" min="0" value="<%=prodotto.getQuantita()%>" required><br> 
+    	</div>
+
+
+    
+   		<div style="display: flex; align-items: flex-end; gap:5px">
+    		<input type="submit" value="Modifica" id="bottoneModificaProd"><br>
+    		<h3 style="color: white;"><a href="catalogo.jsp" style="text-decoration: none; color: #2074b0;"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a></h3>
+    	</div>
+    </div>
+    </div>
     <%
         if("true".equals(request.getAttribute("verificatarocca"))){
     %>
@@ -183,5 +91,7 @@
     %>
     </form>
     </div>
-    
+   
+    <script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>
+</body>

@@ -15,7 +15,7 @@
         		<h1> Errore nella richiesta al server, riprova</h1>
 				<a href = "home.jsp"> Torna alla home</a>
 				</div>
-	
+	<script src="script.js"></script>
 	<%@ include file="includes/footer.jsp" %>
 	
 </div>	
