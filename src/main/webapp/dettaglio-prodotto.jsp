@@ -3,12 +3,22 @@
 <%@ page import="java.util.Iterator" %>
 <%@ include file="includes/header.jsp" %>
 <%@ page import="it.unisa.model.ProductBean" %>
+<%@ page import="it.unisa.model.UserBean" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
 <!-- PAGINA CHE VIENE APERTA QUANDO SI VUOLE CAMBIARE QUALCHE ATTRIBUTO DI UN RICAMBIO LATO AMMINISTRATORE (da catalogo.jsp) (non è la pagina del prodotto che visualizzano i clienti) -->
 <%
+
+    UserBean user = (UserBean) session.getAttribute("user");
+    String tipo = (String) session.getAttribute("tipo");
+    Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
+    if (user == null || tipo.equals("Customer")) {
+        response.sendRedirect("login.jsp"); 
+        return;
+    }
     
     ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 %>
