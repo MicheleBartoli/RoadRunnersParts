@@ -193,7 +193,7 @@ public class OrdineControl extends HttpServlet {
         Timestamp endDate = null;
 
         try {
-        	TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        	TimeZone.setDefault(TimeZone.getTimeZone("GTM-2"));
             if (startDateParam != null && !startDateParam.isEmpty()) {
                 java.util.Date parsedStartDate = dateFormat.parse(startDateParam);
                 startDate = new Timestamp(parsedStartDate.getTime());

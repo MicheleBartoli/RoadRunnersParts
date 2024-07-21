@@ -31,10 +31,10 @@
 
 <div class="login-container" id="registerForm" style="display: none;">
     <h2>Registrazione</h2>
-    <form action="UserControl?action=registrautente" method="post" onsubmit="return validateForm()">
+    <form action="UserControl?action=registrautente" method="post" onsubmit="return validateFormLogin()">
         <input type="hidden" name="action" value="register">
         <label for="registerUserid">E-mail:</label><br>
-        <input type="text" id="registerUserid" name="userid" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
+        <input type="text" id="registerUserid" name="userid" required><br>
         <label for="registerPassword">Password:</label><br>
         <input type="password" id="registerPassword" name="password" required>
         <button type="button" onmousedown="showPassword('registerPassword')" onmouseup="hidePassword('registerPassword')"><i class="fa fa-eye" aria-hidden="true"></i></button><br>

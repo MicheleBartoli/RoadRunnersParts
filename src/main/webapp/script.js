@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function validateForm() {
+function validateFormLogin() {
         var email = document.getElementById('registerUserid').value;
         var password = document.getElementById('registerPassword').value;
         var confirmPassword = document.getElementById('confirmPassword').value;
@@ -87,7 +87,7 @@ function validateForm() {
         }
 
         return true;
-    }
+}
 
     function showPassword(inputId) {
         document.getElementById(inputId).type = 'text';
@@ -227,14 +227,14 @@ function validateForm() {
 			   
 			   
 			   
-function reAdressForm() {
+		function reAdressForm() {
 		document.getElementById('form-container').style.display = 'block';
 		document.getElementById('reAdressButton').style.display = 'none';
-}
-function updateAdressForm() {
+		}
+		function updateAdressForm() {
 		document.getElementById('form-container').style.display = 'none';
 		document.getElementById('reAdressButton').style.display = 'block';
-}
+		}		
 
 
 ///sortForm
