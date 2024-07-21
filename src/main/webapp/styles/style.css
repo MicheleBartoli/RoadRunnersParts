@@ -42,15 +42,16 @@ html, body{
 
  }
 .redirect{
+
+	height:100%;
+	width: 100%;
 	text-align: center;
-	margin-top: 350px;
 }
 .redirect h1{
 	color: #2074B0;
 	text-align: center;
 	margin-top: 350px;
 }
-    
   																			/*NAVBAR*/
 /* Stile per il logo */
  .logo {
@@ -842,7 +843,93 @@ footer {
     font-weight: bold;
 }
 	
+.containerArticoliCarrello{
+	display: flex;
+    margin-top: 0px;
+    flex-direction: row;
+    justify-content: center;
+    height:1400px;
 	
+}	
+.tableArticoliCarrello{
+    display: flex;
+    height: 900px;
+    width: 60%;
+    /* border: 1px solid #ccc; */
+    overflow-y: auto;
+    flex-direction: column;
+    gap: 40px;
+
+}
+.cardPayment{
+	width: 400px;
+    color: #2074B0;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 900px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+}
+.tableCarrello {
+        width: 100%;
+    }
+.informazioni-utenti{
+	color: black;
+	margin: 20px 15px;
+	font-size:18px;
+}
+.informazioni-utenti a{
+	font-weight: bolder; 
+}
+
+.totaleCarrello{
+	text-align:center;
+	width:100%;
+}
+.buyButton{
+	width: 100%;
+    background-color: #fff;
+    color: #2074B0;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 35px;
+    font-size: 25px;
+    box-shadow: 0 4px 8px #337ab730;
+    border-radius: 35px;
+    border: 1px solid #ccc;
+}
+.buyButton:hover{
+	/*background-color: #94d2ff; */
+    /* color: #fff; */
+    text-decoration: underline;
+}
+.delete-button{
+	    /* width: 100%; */
+    background-color: #fff;
+    color: #2074B0;
+    /* padding: 10px; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* margin-bottom: 35px; */
+    font-size: 25px;
+    /* box-shadow: 0 4px 8px #337ab730; */
+    /* border-radius: 35px; */
+    border: 1px solid #ccc0;}
+
+.delete-button:hover{
+	background-color: #94d2ff; 
+    color: #fff; 
+}
+
+
 													/* Media query per schermi di dimensioni più piccole */
 													
 @media (max-width: 1432px){
@@ -1042,7 +1129,7 @@ footer {
   }
   .spacing{
   display: block;
-  height: 60px;
+  height: 40px;
   width: 100%;
   }
   
@@ -1062,7 +1149,23 @@ footer {
     width: 270px;
     height: 600px;
 }
+
+.containerArticoliCarrello {
+    flex-direction: column-reverse;
+    justify-content: center;
+    height: 1550px;
+    gap: 40px;
+    align-items: center;
 }
+
+
+
+
+
+}
+
+
+
 
 
 @media (max-width: 768px) {
@@ -1082,6 +1185,12 @@ footer {
     .cardModificaProdotto {
     width: 340px;
 }
+
+.tableArticoliCarrello {
+    width: 400px; 
+}
+
+
 }
 	
 @media (max-width: 500px) {

@@ -53,7 +53,7 @@
         					}
         					else { %>
                         
-                        <form action="ProductControl?action=addproduct&idprodotto=<%= prodotto.getId() %>" method="post">
+                         <form action="ProductControl?action=addproduct&idprodotto=<%= prodotto.getId() %>" method="post">
                             <input type="hidden" name="productId" value="<%= prodotto.getId() %>" />
                             <button type="submit" id="bottoneCardProduct">Aggiungi al carrello</button>
                         </form>
@@ -68,6 +68,12 @@
         %>
     </div>
 </body>
+
+
+
+
+
+
 <script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>
 </html>

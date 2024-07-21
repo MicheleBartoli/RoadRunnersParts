@@ -36,7 +36,7 @@ function showSlides() {
 
 showSlides();
 
-function myFunction() {
+function myFunction() { //funzione per il pulsante a panino in modalità responsive
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
@@ -44,7 +44,6 @@ function myFunction() {
     x.className = "topnav";
   }
 }
-
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -257,3 +256,7 @@ function hideInsertProduct(){
 function handleImageClick() {
         document.getElementById('fileinput').click();
     }
+
+	
+
+	

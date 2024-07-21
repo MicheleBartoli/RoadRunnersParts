@@ -12,13 +12,13 @@
 		
         		
         		<div class="redirect">
-        		<h1> Errore nella richiesta al server, riprova</h1>
-				<a href = "home.jsp"> Torna alla home</a>
+        				<h1> Errore, del nostro server, scusaci</h1>
+						<a href = "home.jsp" style="text-align: center;"> Torna alla home</a>
 				</div>
-	<script src="script.js"></script>
-	<%@ include file="includes/footer.jsp" %>
+	
 	
 </div>	
-	
+	<script src="script.js"></script>
+	<%@ include file="includes/footer.jsp" %>
 </body>
 </html>

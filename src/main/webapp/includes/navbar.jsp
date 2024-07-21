@@ -1,6 +1,7 @@
 <body>
 	<header>
-	
+	<script type="text/javascript">
+	</script>
     	<div class="topnav" id="myTopnav">
         	<div class="logo-container">
             	<img src="images/logo.png" alt="Logo" class="logo">
@@ -8,7 +9,7 @@
         	<input type="text" id="search" class="searchbar" placeholder="Cerca...">
         	<div id="suggestions" class="suggestions"></div>
         	
-        	<a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
+        	<a href="javascript:void(0);" class="hamburger" onclick="myFunction()"> <!-- per prevenire il comportamento predefinito di un link -->
             	<i class="fa fa-bars"></i> 
         	</a>
         		<a href="home.jsp">Home</a>

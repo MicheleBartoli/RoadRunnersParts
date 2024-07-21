@@ -1,4 +1,5 @@
 <%@ page import="it.unisa.model.ProductBean" %>
+<%@ page import="it.unisa.model.OrderBean" %>
 <%@ include file="includes/header.jsp" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -7,13 +8,13 @@
 <%
     // Ottieni la lista dei prodotti dall'attributo della richiesta
     List<ProductBean> products = (List<ProductBean>) request.getAttribute("order");
-
     if (products == null || products.isEmpty()) {
         out.println("<p style='color: red;'>Non ci sono prodotti disponibili per questo ordine.</p>");
     } else {
 %>
 
 <div class="containerProdotti">
+
 <div class="table-container" id="containerTabella">
     <table border="1" class="tabellaProdotto">
         <tr>

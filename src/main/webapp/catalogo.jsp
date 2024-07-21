@@ -142,5 +142,6 @@
 %>
 
 </div>
+
 <script src="script.js"></script>
 <%@ include file="includes/footer.jsp" %>

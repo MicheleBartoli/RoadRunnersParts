@@ -68,16 +68,15 @@
         
         
          <!-- Pulsante per aggiungere al carrello -->
-         <form id="addToCartForm" method="post">
+      
+        <form action="ProductControl?action=addProduct&idprodotto=<%= product.getId() %>" method="post">
             <input type="hidden" name="productId" value="<%= product.getId() %>">
-            <button type="button" onclick="addToCart()">Aggiungi al carrello</button>
+            <input type="submit" value="Aggiungi al carrello" id="addButton">
+
         </form>
-        <!--ESPERIMENTO -->
-        <form action="OrdineControl" method="post">
-                        <input type='hidden' name='action' value='saveorder'>
-                        <button type='submit' id="addButton">Compra subito!</button>
+        
            <% }%>
-        </form>
+        
        </div>
    </div>
 
@@ -92,33 +91,5 @@
 </body>
 <script src="script.js"></script>
 
-<script>
-    function addToCart() {
-        const form = document.getElementById('addToCartForm');
-        const formData = new FormData(form);
-    
-        fetch('ProductControl?action=addProduct', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())  // Assicurati che il server restituisca una risposta JSON
-        .then(data => {
-            const feedbackElement = document.getElementById('cartFeedback');
-            if (data.success) {
-                feedbackElement.innerText = 'Prodotto aggiunto al carrello!';
-                feedbackElement.style.color = 'green';
-            } else {
-                feedbackElement.innerText = 'Errore nell\'aggiunta del prodotto al carrello.';
-                feedbackElement.style.color = 'red';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            const feedbackElement = document.getElementById('cartFeedback');
-            feedbackElement.innerText = 'Errore di comunicazione con il server.';
-            feedbackElement.style.color = 'red';
-        });
-    }
-    </script>
 <%@ include file="includes/footer.jsp" %>
 </html>

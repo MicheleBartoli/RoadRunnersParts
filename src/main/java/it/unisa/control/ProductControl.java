@@ -42,9 +42,9 @@ public class ProductControl extends HttpServlet {
         try {
             if (action != null) {
                 switch (action.toLowerCase()) {
-                    case "addproduct":
-                        addProduct(request, response);
-                        break;
+                	case "addproduct":
+                		addProduct(request, response);
+                    	break;
                     case "readdetails":
                         readProductDetails(request, response);
                         break;
@@ -88,31 +88,21 @@ public class ProductControl extends HttpServlet {
         doGet(request, response);
     }
 
-    //aggiungi prodotto al carrello 
+  //aggiungi prodotto al carrello 
     private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-       HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        int id = Integer.parseInt(request.getParameter("idprodotto"));
         CartBean cart = (CartBean) session.getAttribute("cart");
         if (cart == null) {
             cart = new CartBean();
             session.setAttribute("cart", cart);
         }
-
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        try {
-            ProductBean product = model.doRetrieveByKey(productId);
-            cart.addProduct(product);
-            
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"success\": true}");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"success\": false}");
-        }
-        return; 
+        ProductBean product = model.doRetrieveByKey(id);
+        cart.addProduct(product);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/catalogo-customer.jsp");
+        dispatcher.forward(request, response);
     }
+    
 
     //leggere i dettagli di un prodotto dal db 
     private void readProductDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
